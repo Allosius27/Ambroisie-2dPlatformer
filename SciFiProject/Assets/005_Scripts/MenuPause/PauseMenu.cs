@@ -13,6 +13,11 @@ public class PauseMenu : MonoBehaviour
 
     [SerializeField] private SceneData mainMenuSceneData;
 
+    private void Awake()
+    {
+        canPause = true;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
