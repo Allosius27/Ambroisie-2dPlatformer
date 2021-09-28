@@ -11,8 +11,8 @@ public class PlayerController : MonoBehaviour
 	public int horizontalRayCount = 4;
 	public int verticalRayCount = 4;
 
-	float maxClimbAngle = 80.0f;
-	float maxDescendAngle = 75;
+	public float maxClimbAngle = 80.0f;
+	public float maxDescendAngle = 75;
 
 	float horizontalRaySpacing;
 	float verticalRaySpacing;
