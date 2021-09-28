@@ -11,6 +11,8 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     private float countTimer;
 
+    private bool resetMoodPlayer;
+
     #endregion
 
     #region Properties
@@ -21,6 +23,11 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     [SerializeField] private int moodTimeInterval;
     [SerializeField] private int moodLostPerTimeInterval;
+
+    [Space]
+
+    [SerializeField] private float timeToWaitBeforeResetMoodPlayer;
+    [SerializeField] private float moodResetSpeed;
 
     #endregion
 
@@ -49,12 +56,39 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
     {
         countTimer += amount;
 
-        if (countTimer >= moodTimeInterval)
+        if (countTimer >= moodTimeInterval && resetMoodPlayer == false)
         {
             countTimer = 0.0f;
-            int newPlayerMoodValue = playerStats.ChangeMood(moodLostPerTimeInterval);
+            float newPlayerMoodValue = playerStats.ChangeMood(moodLostPerTimeInterval);
             gameCanvasManager.MoodBar.SetBarValue(newPlayerMoodValue);
+            if(newPlayerMoodValue <= 0)
+            {
+                StartCoroutine(TimerResetMoodPlayer());
+            }
         }
+
+        if(resetMoodPlayer)
+        {
+            countTimer = 0.0f;
+            float newPlayerMoodValue = playerStats.ChangeMood(moodResetSpeed);
+            gameCanvasManager.MoodBar.SetBarValue(newPlayerMoodValue);
+            if (newPlayerMoodValue >= gameCanvasManager.MoodBar.slider.maxValue)
+            {
+                resetMoodPlayer = false;
+            }
+        }
+    }
+
+    IEnumerator TimerResetMoodPlayer()
+    {
+        playerStats.GetComponent<Player>().canControl = false;
+
+        resetMoodPlayer = true;
+
+        yield return new WaitForSeconds(timeToWaitBeforeResetMoodPlayer);
+
+        playerStats.GetComponent<Player>().canControl = true;
+
     }
 
     #endregion

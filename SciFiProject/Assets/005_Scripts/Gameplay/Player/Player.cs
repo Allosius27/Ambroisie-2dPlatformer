@@ -121,16 +121,22 @@ public class Player : MonoBehaviour
 	{
 		if ((Input.GetKeyDown(KeyCode.LeftArrow)) || (Input.GetKeyDown(KeyCode.Q)))
 		{
-			RotateChange = new Vector3(0f, 180f, 0f);
+			if (canControl)
+			{
+				RotateChange = new Vector3(0f, 180f, 0f);
 
-			graphics.transform.rotation = Quaternion.Euler(RotateChange);
+				graphics.transform.rotation = Quaternion.Euler(RotateChange);
+			}
 		}
 
 		if ((Input.GetKeyDown(KeyCode.RightArrow)) || (Input.GetKeyDown(KeyCode.D)))
 		{
-			RotateChange = new Vector3(0f, 0f, 0f);
+			if (canControl)
+			{
+				RotateChange = new Vector3(0f, 0f, 0f);
 
-			graphics.transform.rotation = Quaternion.Euler(RotateChange);
+				graphics.transform.rotation = Quaternion.Euler(RotateChange);
+			}
 		}
 	}
 
