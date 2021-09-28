@@ -10,27 +10,27 @@ public class PlayerStats : MonoBehaviour
 
     #region Properties
 
-    public int Mood => mood;
-    public int Health => health;
+    public float Mood => mood;
+    public float Health => health;
 
     #endregion
 
     #region UnityInspector
 
-    [SerializeField] private int mood;
-    [SerializeField] private int health;
+    [SerializeField] private float mood;
+    [SerializeField] private float health;
 
     #endregion
 
     #region Behaviour
 
-    public int ChangeHealth(int amount)
+    public float ChangeHealth(float amount)
     {
         this.health += amount;
         return this.health;
     }
 
-    public int ChangeMood(int amount)
+    public float ChangeMood(float amount)
     {
         this.mood += amount;
         return this.mood;

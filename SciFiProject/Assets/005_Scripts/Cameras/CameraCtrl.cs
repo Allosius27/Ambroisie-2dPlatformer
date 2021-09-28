@@ -11,6 +11,14 @@ public class CameraCtrl : MonoBehaviour
 
     #endregion
 
+    #region Properties
+
+    public bool triggerX { get; set; }
+
+    public bool triggerY { get; set; }
+
+    #endregion
+
     #region UnityInspector
 
     [SerializeField] private GameObject player;
@@ -33,6 +41,17 @@ public class CameraCtrl : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Vector3.SmoothDamp(transform.position, player.transform.position + posOffset, ref velocity, timeOffset);
+        if (!triggerX && !triggerY)
+        {
+            transform.position = Vector3.SmoothDamp(transform.position, player.transform.position + posOffset, ref velocity, timeOffset);
+        }
+        else if(triggerX)
+        {
+            transform.position = Vector3.SmoothDamp(transform.position, new Vector3(transform.position.x, player.transform.position.y + posOffset.y, player.transform.position.z + posOffset.z), ref velocity, timeOffset);
+        }
+        else if(triggerY)
+        {
+            transform.position = Vector3.SmoothDamp(transform.position, new Vector3(player.transform.position.x + posOffset.x, transform.position.y, player.transform.position.z + posOffset.z), ref velocity, timeOffset);
+        }
     }
 }

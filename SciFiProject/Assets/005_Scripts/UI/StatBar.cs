@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class StatBar : MonoBehaviour
 {
-    private Slider slider;
+    public Slider slider { get; protected set; }
 
     private void Awake()
     {
