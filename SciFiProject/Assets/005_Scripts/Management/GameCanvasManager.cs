@@ -14,6 +14,8 @@ public class GameCanvasManager : MonoBehaviour
     public StatBar HealthBar => healthBar;
     public StatBar MoodBar => moodBar;
 
+    public StatBar ShootHealthBar => shootHealthBar;
+
     public Text DateAmountText => dateAmountText;
 
     #endregion
@@ -22,6 +24,8 @@ public class GameCanvasManager : MonoBehaviour
 
     [SerializeField] private StatBar healthBar;
     [SerializeField] private StatBar moodBar;
+
+    [SerializeField] private StatBar shootHealthBar;
 
     [SerializeField] private Text dateAmountText;
 

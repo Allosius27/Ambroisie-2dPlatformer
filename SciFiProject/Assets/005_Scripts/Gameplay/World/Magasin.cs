@@ -40,6 +40,15 @@ public class Magasin : MonoBehaviour
             Player _player = FindObjectOfType<Player>();
             _player.canControl = false;
         }
+
+        if(canOpenShopMenu && GameCore.Instance.shopMenuIsOpen == false)
+        {
+            displayKeyShopMenuToInput.SetActive(true);
+        }
+        else
+        {
+            displayKeyShopMenuToInput.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -54,7 +63,6 @@ public class Magasin : MonoBehaviour
         if (typeCollision.type == Entity.Type.Player)
         {
             canOpenShopMenu = true;
-            displayKeyShopMenuToInput.SetActive(true);
         }
     }
 
@@ -70,7 +78,6 @@ public class Magasin : MonoBehaviour
         if (typeCollision.type == Entity.Type.Player)
         {
             canOpenShopMenu = false;
-            displayKeyShopMenuToInput.SetActive(false);
         }
     }
 

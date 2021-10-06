@@ -8,6 +8,7 @@ public class Entity : MonoBehaviour
     {
         Default,
         Player,
+        Ground,
     }
     public Type type;
 }

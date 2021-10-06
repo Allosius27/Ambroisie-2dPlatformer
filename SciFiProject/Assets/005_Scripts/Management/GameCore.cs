@@ -19,6 +19,15 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     public bool shopMenuIsOpen { get; set; }
 
+    public bool shootMiniGameActive { get; set; }
+
+    public CameraCtrl MainCameraCtrl => mainCameraCtrl;
+    public CameraCtrl ShootCameraCtrl => shootCameraCtrl;
+
+    public GameObject WorldHub => worldHub;
+    public GameObject WorldShootMiniGame => worldShootMiniGame;
+    public GameObject ShootMiniGamePlayerSpawnPoint => shootMiniGamePlayerSpawnPoint;
+
     #endregion
 
     #region UnityInspector
@@ -30,6 +39,17 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     [SerializeField] private float timeToWaitBeforeResetMoodPlayer;
     [SerializeField] private float moodResetSpeed;
+
+    [Space]
+
+    [SerializeField] private CameraCtrl mainCameraCtrl;
+    [SerializeField] private CameraCtrl shootCameraCtrl;
+
+    [Space]
+
+    [SerializeField] private GameObject worldHub;
+    [SerializeField] private GameObject worldShootMiniGame;
+    [SerializeField] private GameObject shootMiniGamePlayerSpawnPoint;
 
     #endregion
 
@@ -52,6 +72,11 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
     private void Update()
     {
         AddCountTime(Time.deltaTime);
+    }
+
+    public GameCanvasManager GetGameCanvasManager()
+    {
+        return gameCanvasManager;
     }
 
     public void SetPrestigeAmount(int amount)

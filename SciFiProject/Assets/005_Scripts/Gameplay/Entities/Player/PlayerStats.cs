@@ -14,6 +14,8 @@ public class PlayerStats : MonoBehaviour
     public float Health => health;
     public int PrestigePoints => prestigePoints;
 
+    public float Strength => strength;
+
     #endregion
 
     #region UnityInspector
@@ -21,6 +23,10 @@ public class PlayerStats : MonoBehaviour
     [SerializeField] private float mood;
     [SerializeField] private float health;
     [SerializeField] private int prestigePoints;
+
+    [Space]
+
+    [SerializeField] private float strength;
 
     #endregion
 

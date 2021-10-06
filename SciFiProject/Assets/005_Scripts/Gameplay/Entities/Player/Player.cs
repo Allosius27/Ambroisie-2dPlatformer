@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
 
 	private Vector3 RotateChange;
 
+	private bool isJump;
 	private bool isGrounded;
 
 	#endregion
@@ -108,6 +109,7 @@ public class Player : MonoBehaviour
 		{
 			Debug.Log("Jump");
 			animator.SetTrigger("jump");
+			isJump = true;
 			velocity.y = jumpVelocity;
 		}
 
@@ -116,6 +118,15 @@ public class Player : MonoBehaviour
 		velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
 		velocity.y += gravity * Time.deltaTime;
 		controller.Move(velocity * Time.deltaTime);
+
+		if(isJump && velocity.y <= 0.0f)
+        {
+			Debug.Log("Fall");
+			isJump = false;
+			animator.SetTrigger("fall");
+        }
+
+		//Debug.Log(velocity);
 	}
 
 	void Flip(float _velocity)
