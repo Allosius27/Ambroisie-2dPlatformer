@@ -17,6 +17,8 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     #region Properties
 
+    public int shooterJobLevel { get; set; }
+
     public bool shopMenuIsOpen { get; set; }
 
     public bool shootMiniGameActive { get; set; }

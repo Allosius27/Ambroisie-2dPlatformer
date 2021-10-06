@@ -35,9 +35,11 @@ public class RingEntrance : MonoBehaviour
             GameCore.Instance.GetGameCanvasManager().HealthBar.gameObject.SetActive(false);
             GameCore.Instance.GetGameCanvasManager().ShootHealthBar.gameObject.SetActive(true);
 
+
             Player _player = FindObjectOfType<Player>();
             _player.canControl = false;
             _player.transform.position = GameCore.Instance.ShootMiniGamePlayerSpawnPoint.transform.position;
+            GameCore.Instance.GetGameCanvasManager().ShootHealthBar.SetMaxBarValue(_player.GetComponent<PlayerStats>().ShootHealth);
 
             GameCore.Instance.shootMiniGameActive = true;
         }

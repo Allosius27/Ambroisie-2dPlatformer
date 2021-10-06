@@ -16,6 +16,8 @@ public class PlayerStats : MonoBehaviour
 
     public float Strength => strength;
 
+    public float ShootHealth => shootHealth;
+
     #endregion
 
     #region UnityInspector
@@ -27,6 +29,10 @@ public class PlayerStats : MonoBehaviour
     [Space]
 
     [SerializeField] private float strength;
+
+    [Space]
+
+    [SerializeField] private float shootHealth;
 
     #endregion
 
@@ -53,6 +59,18 @@ public class PlayerStats : MonoBehaviour
     {
         this.prestigePoints += amount;
         return this.prestigePoints;
+    }
+
+    private float ChangeShootHealth(float amount)
+    {
+        this.shootHealth += amount;
+        return this.shootHealth;
+    }
+
+    public void TakeShootDamage(float amount)
+    {
+        ChangeShootHealth(amount);
+        GameCore.Instance.GetGameCanvasManager().ShootHealthBar.SetBarValue(shootHealth);
     }
 
     #endregion

@@ -43,6 +43,11 @@ public class PlayerBullet : MonoBehaviour
             return;
         }
 
+        if(typeCollision.type == Entity.Type.Enemy)
+        {
+            typeCollision.GetComponent<EnemyStats>().TakeDamage(damage);
+        }
+
         Destroy(gameObject);
     }
 

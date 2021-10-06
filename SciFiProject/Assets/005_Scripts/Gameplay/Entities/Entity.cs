@@ -9,6 +9,7 @@ public class Entity : MonoBehaviour
         Default,
         Player,
         Ground,
+        Enemy,
     }
     public Type type;
 }
