@@ -17,6 +17,8 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     #region Properties
 
+    public bool shopMenuIsOpen { get; set; }
+
     #endregion
 
     #region UnityInspector

@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEditor;
 
 public class PauseMenu : MonoBehaviour
-{
+{   
     public static bool gameIsPaused = false;
     public static bool canPause;
     public GameObject settingsMenu;
@@ -27,7 +27,7 @@ public class PauseMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Escape"))
+        if (Input.GetButtonDown("Escape") && GameCore.Instance.shopMenuIsOpen == false)
         {
             MenuPause();
         }
