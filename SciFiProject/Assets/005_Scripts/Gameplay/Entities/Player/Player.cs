@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
 		float characterVelocity = Mathf.Abs(velocity.x);
 		
 		Flip(velocity.x);
-		animator.SetBool("jump", !isGrounded);		
+		animator.SetBool("isJumping", !isGrounded);		
 
 		if (controller.collisions.above || controller.collisions.below)
 		{
@@ -107,6 +107,7 @@ public class Player : MonoBehaviour
 		if (Input.GetButtonDown("Jump") && controller.collisions.below && canControl)
 		{
 			Debug.Log("Jump");
+			animator.SetTrigger("jump");
 			velocity.y = jumpVelocity;
 		}
 

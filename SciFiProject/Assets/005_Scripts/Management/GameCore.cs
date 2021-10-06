@@ -54,6 +54,11 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         AddCountTime(Time.deltaTime);
     }
 
+    public void SetPrestigeAmount(int amount)
+    {
+        gameCanvasManager.SetPrestigeAmountText(amount);
+    }
+
     public void AddCountTime(float amount)
     {
         countTimer += amount;

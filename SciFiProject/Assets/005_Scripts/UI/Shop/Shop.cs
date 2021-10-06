@@ -8,12 +8,13 @@ public class Shop : MonoBehaviour
 
     private HubCollection hubCollection;
 
+    private PlayerStats playerStats;
 
     #endregion
 
     #region Properties
 
-    
+    public PlayerStats PlayerStats => playerStats;
 
     #endregion
 
@@ -31,6 +32,8 @@ public class Shop : MonoBehaviour
     private void Awake()
     {
         hubCollection = FindObjectOfType<HubCollection>();
+
+        playerStats = FindObjectOfType<PlayerStats>();
     }
 
     private void Start()
@@ -45,6 +48,9 @@ public class Shop : MonoBehaviour
             _shopItemButton.collectionObject = hubCollection.CollectionsItems[i];
             _shopItemButton.SetItemImage(hubCollection.CollectionsItems[i].ShopItemData.sprite);
             _shopItemButton.SetPriceText(hubCollection.CollectionsItems[i].ShopItemData.costItem);
+            _shopItemButton.cost = hubCollection.CollectionsItems[i].ShopItemData.costItem;
+
+            _shopItemButton.shop = this;
         }
 
         ActiveShopMenu(false);

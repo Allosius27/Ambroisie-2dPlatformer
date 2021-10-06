@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: New ShopItemData
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 3f27a4cbbe46a1d44b74cc5218e3ab0b, type: 3}
-  costItem: 1000
+  costItem: 500

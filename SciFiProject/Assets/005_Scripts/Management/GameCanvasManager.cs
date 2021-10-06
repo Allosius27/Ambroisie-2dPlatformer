@@ -25,5 +25,16 @@ public class GameCanvasManager : MonoBehaviour
 
     [SerializeField] private Text dateAmountText;
 
+    [SerializeField] private Text prestigeAmountText;
+
+    #endregion
+
+    #region Behaviour
+
+    public void SetPrestigeAmountText(int amount)
+    {
+        prestigeAmountText.text = amount.ToString();
+    }
+
     #endregion
 }

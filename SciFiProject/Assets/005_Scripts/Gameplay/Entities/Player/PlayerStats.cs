@@ -12,6 +12,7 @@ public class PlayerStats : MonoBehaviour
 
     public float Mood => mood;
     public float Health => health;
+    public int PrestigePoints => prestigePoints;
 
     #endregion
 
@@ -19,10 +20,16 @@ public class PlayerStats : MonoBehaviour
 
     [SerializeField] private float mood;
     [SerializeField] private float health;
+    [SerializeField] private int prestigePoints;
 
     #endregion
 
     #region Behaviour
+
+    private void Start()
+    {
+        GameCore.Instance.SetPrestigeAmount(prestigePoints);
+    }
 
     public float ChangeHealth(float amount)
     {
@@ -36,6 +43,11 @@ public class PlayerStats : MonoBehaviour
         return this.mood;
     }
 
+    public int ChangePrestigePoints(int amount)
+    {
+        this.prestigePoints += amount;
+        return this.prestigePoints;
+    }
 
     #endregion
 }
