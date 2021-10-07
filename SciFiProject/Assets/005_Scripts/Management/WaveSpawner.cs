@@ -9,9 +9,12 @@ public class WaveSpawner : MonoBehaviour
     [System.Serializable]
     public class Wave
     {
+        public int baseCount { get; set; }
+        public List<Transform> baseSpawnsPoints { get; set; }
+
         public string name;
         public Transform enemy;
-        public Transform[] spawnPoint;
+        public List<Transform> spawnPoint = new List<Transform>();
         public int count;
         public float rate;
     }
@@ -20,13 +23,35 @@ public class WaveSpawner : MonoBehaviour
     private int nextWave = 0;
 
     public float timeBetweenWaves = 5f;
+    public float timeBetweenIncreaseEnemies = 2f;
     private float waveCountdown;
 
     public SpawnState state = SpawnState.COUNTING;
 
+    private void Awake()
+    {
+        for (int i = 0; i < waves.Length; i++)
+        {
+            waves[i].baseSpawnsPoints = new List<Transform>();
+        }
+    }
+
     private void Start()
     {
+        for (int i = 0; i < waves.Length; i++)
+        {
+            waves[i].baseCount = waves[i].count;
+            waves[i].baseSpawnsPoints.Clear();
+            for (int j = 0; j < waves[i].spawnPoint.Count; j++)
+            {
+                waves[i].baseSpawnsPoints.Add(waves[i].spawnPoint[j]);
+            }
+
+        }
+
         waveCountdown = timeBetweenWaves;
+
+        StartCoroutine(TimerBetweenIncreaseEnemies());
     }
 
     private void Update()
@@ -95,5 +120,32 @@ public class WaveSpawner : MonoBehaviour
 
 
         Debug.Log("Spawning Enemy :" + _enemy.name);
+    }
+
+    private IEnumerator TimerBetweenIncreaseEnemies()
+    {
+        yield return new WaitForSeconds(timeBetweenIncreaseEnemies);
+
+        for (int i = 0; i < waves.Length; i++)
+        {
+            waves[i].count += 1;
+            waves[i].spawnPoint.Add(waves[i].spawnPoint[waves[i].spawnPoint.Count - 1]);
+        }
+
+        StartCoroutine(TimerBetweenIncreaseEnemies());
+    }
+
+    public void ReinitWaves()
+    {
+        for (int i = 0; i < waves.Length; i++)
+        {
+            waves[i].count = waves[i].baseCount;
+            waves[i].spawnPoint.Clear();
+            for (int j = 0; j < waves[i].baseSpawnsPoints.Count; j++)
+            {
+                waves[i].spawnPoint.Add(waves[i].baseSpawnsPoints[j]);
+            }
+            
+        }
     }
 }

@@ -6,6 +6,8 @@ public class PlayerStats : MonoBehaviour
 {
     #region Fields
 
+    PlayerShoot playerShoot;
+
     #endregion
 
     #region Properties
@@ -56,6 +58,8 @@ public class PlayerStats : MonoBehaviour
 
     private void Awake()
     {
+        playerShoot = GetComponent<PlayerShoot>();
+
         baseShootHealth = shootHealth;
 
         currentShootJobExpRequired = baseExpRequired;
@@ -109,6 +113,12 @@ public class PlayerStats : MonoBehaviour
         {
             currentShootJobLevel++;
             ShootMiniGameManager.Instance.SetCurrentLevelRankTitle(currentShootJobLevel);
+            ShootMiniGameManager.Instance.SetCurrentLevelBulletSprite(currentShootJobLevel);
+
+            ChangeStrength(multiplierStrengthPerLevel);
+
+            playerShoot.ChangeBulletSpeed(playerShoot.MultiplierBulletSpeedPerLevel);
+            playerShoot.ChangeBaseShootingCooldownTime(playerShoot.MultiplierBaseShootingCooldownTimePerLevel);
 
             float remnantExp = this.currentShootJobExp - currentShootJobExpRequired;
             this.currentShootJobExp = 0;
@@ -119,6 +129,11 @@ public class PlayerStats : MonoBehaviour
                 ChangeShootJobExp((int)(remnantExp));
             }
         }
+    }
+
+    public void ChangeStrength(float amount)
+    {
+        this.strength = this.strength * amount;
     }
 
     public void SetShootHealth(float amount)
@@ -143,9 +158,13 @@ public class PlayerStats : MonoBehaviour
 
     public IEnumerator TimerEndShootMiniGame()
     {
+        WaveSpawner waveSpawner = FindObjectOfType<WaveSpawner>();
+        waveSpawner.ReinitWaves();
+
         yield return new WaitForSeconds(1f);
 
         var Enemies = FindObjectsOfType<Enemy>();
+
 
         GameCore.Instance.SetStateShootMiniGame(false);
 

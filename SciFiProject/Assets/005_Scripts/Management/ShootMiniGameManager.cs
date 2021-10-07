@@ -12,13 +12,13 @@ public class ShootMiniGameManager : AllosiusDev.Singleton<ShootMiniGameManager>
 
     public int expPointsGained { get; set; }
 
-    public List<string> LevelRankTitle => levelRankTitle;
+    public List<LevelRank> LevelRankTitle => levelRanks;
 
     #endregion
 
     #region UnityInspector
 
-    [SerializeField] private List<string> levelRankTitle = new List<string>();
+    [SerializeField] private List<LevelRank> levelRanks = new List<LevelRank>();
 
     #endregion
 
@@ -40,11 +40,17 @@ public class ShootMiniGameManager : AllosiusDev.Singleton<ShootMiniGameManager>
         SetCurrentExpRank(playerStats.currentShootJobExp, playerStats.currentShootJobExpRequired);
 
         SetCurrentLevelRankTitle(playerStats.currentShootJobLevel);
+        SetCurrentLevelBulletSprite(playerStats.currentShootJobLevel);
     }
 
     public void SetCurrentLevelRankTitle(int playerJobLevel)
     {
-        gameCanvasManager.ShootJobExpLabelText.text = levelRankTitle[playerJobLevel] + " :";
+        gameCanvasManager.ShootJobExpLabelText.text = levelRanks[playerJobLevel].title + " :";
+    }
+
+    public void SetCurrentLevelBulletSprite(int playerJobLevel)
+    {
+        playerStats.GetComponent<PlayerShoot>().currentBulletSprite = levelRanks[playerJobLevel].bulletSprite;
     }
 
     public void SetCurrentExpRank(float playerCurrentJobExp, float playerCurrentJobExpRequired)

@@ -14,6 +14,8 @@ public class PlayerShoot : MonoBehaviour
 
     public bool is_firing { get; protected set; }
 
+    public Sprite currentBulletSprite { get; set; }
+
     public float BulletSpeed => bulletSpeed;
     public float MultiplierBulletSpeedPerLevel => multiplierBulletSpeedPerLevel;
 
@@ -60,6 +62,12 @@ public class PlayerShoot : MonoBehaviour
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             bullet.transform.SetParent(firePoint);
             bullet.transform.localPosition = Vector3.zero;
+
+            if (currentBulletSprite != null)
+            {
+                bullet.GetComponent<SpriteRenderer>().sprite = currentBulletSprite;
+            }
+
             bullet.GetComponent<PlayerBullet>().damage = playerStats.Strength;
             bullet.GetComponent<PlayerBullet>().direction = new Vector3(1, 0, 0);
             bullet.GetComponent<PlayerBullet>().speed = bulletSpeed;
@@ -68,6 +76,16 @@ public class PlayerShoot : MonoBehaviour
             is_firing = false;
             StartCoroutine(ShootCoolDownTime());
         }
+    }
+
+    public void ChangeBulletSpeed(float amount)
+    {
+        this.bulletSpeed *= amount;
+    }
+
+    public void ChangeBaseShootingCooldownTime(float amount)
+    {
+        this.baseShootingCooldownTime *= amount;
     }
 
     IEnumerator ShootCoolDownTime()
