@@ -149,7 +149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2536582437899844492, guid: a49a89e1e68d9444da80817d1fa0c265, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.87
+      value: -7.39
       objectReference: {fileID: 0}
     - target: {fileID: 2536582437899844492, guid: a49a89e1e68d9444da80817d1fa0c265, type: 3}
       propertyPath: m_LocalPosition.y
@@ -191,6 +191,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 2536582439187235558, guid: a49a89e1e68d9444da80817d1fa0c265, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c90aeb8d76fa899489eeedd0e1252849, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a49a89e1e68d9444da80817d1fa0c265, type: 3}
 --- !u!4 &32967513 stripped
@@ -353,7 +357,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.92
   m_Color: {r: 1, g: 0, b: 0.84413767, a: 1}
-  m_Intensity: 0.98
+  m_Intensity: 0.44
   m_LightVolumeOpacity: 1
   m_ApplyToSortingLayers: 00000000
   m_LightCookieSprite: {fileID: 0}
