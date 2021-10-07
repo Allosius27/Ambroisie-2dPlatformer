@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RingEntrance : Entrance
+public class BabyFactoryEntrance : Entrance
 {
     #region Fields
 
@@ -20,7 +20,7 @@ public class RingEntrance : Entrance
 
         if (Input.GetKeyDown(ActiveMiniGameKey) && CanLaunchMiniGame)
         {
-            GameCore.Instance.SetStateShootMiniGame(true);
+            Debug.Log("Baby Factory Entrance");
         }
     }
 }
