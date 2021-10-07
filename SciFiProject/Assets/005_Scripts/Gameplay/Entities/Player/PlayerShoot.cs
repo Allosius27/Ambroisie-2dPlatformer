@@ -14,6 +14,12 @@ public class PlayerShoot : MonoBehaviour
 
     public bool is_firing { get; protected set; }
 
+    public float BulletSpeed => bulletSpeed;
+    public float MultiplierBulletSpeedPerLevel => multiplierBulletSpeedPerLevel;
+
+    public float BaseShootingCooldownTime => baseShootingCooldownTime;
+    public float MultiplierBaseShootingCooldownTimePerLevel => multiplierBaseShootingCooldownTimePerLevel;
+
     #endregion
 
     #region UnityInspector
@@ -21,8 +27,12 @@ public class PlayerShoot : MonoBehaviour
     [SerializeField] private Transform firePoint;
 
     [SerializeField] private GameObject bulletPrefab;
+
     [SerializeField] private float bulletSpeed;
+    [SerializeField] private float multiplierBulletSpeedPerLevel;
+
     [SerializeField] private float baseShootingCooldownTime;
+    [SerializeField] private float multiplierBaseShootingCooldownTimePerLevel;
 
     #endregion
 
@@ -52,7 +62,7 @@ public class PlayerShoot : MonoBehaviour
             bullet.transform.localPosition = Vector3.zero;
             bullet.GetComponent<PlayerBullet>().damage = playerStats.Strength;
             bullet.GetComponent<PlayerBullet>().direction = new Vector3(1, 0, 0);
-            bullet.GetComponent<PlayerBullet>().speed = bulletSpeed; ;
+            bullet.GetComponent<PlayerBullet>().speed = bulletSpeed;
             Physics2D.IgnoreCollision(this.GetComponent<Collider2D>(), bullet.GetComponent<Collider2D>());
 
             is_firing = false;

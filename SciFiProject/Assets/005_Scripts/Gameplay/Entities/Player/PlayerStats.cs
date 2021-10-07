@@ -19,6 +19,7 @@ public class PlayerStats : MonoBehaviour
     public int JobMaxLevel => jobMaxLevel;
 
     public float Strength => strength;
+    public float MultiplierStrengthPerLevel => multiplierExpPerLevel;
 
     public float baseShootHealth { get; set; }
     public float ShootHealth => shootHealth;
@@ -43,6 +44,7 @@ public class PlayerStats : MonoBehaviour
     [Space]
 
     [SerializeField] private float strength;
+    [SerializeField] private float multiplierStrengthPerLevel = 1.0f;
 
     [Space]
 
@@ -90,20 +92,7 @@ public class PlayerStats : MonoBehaviour
         {
             this.currentShootJobExp += amount;
 
-            if (this.currentShootJobExp >= currentShootJobExpRequired && currentShootJobLevel < JobMaxLevel)
-            {
-                currentShootJobLevel++;
-                ShootMiniGameManager.Instance.SetCurrentLevelRankTitle(currentShootJobLevel);
-
-                float remnantExp = this.currentShootJobExp - currentShootJobExpRequired;
-                this.currentShootJobExp = 0;
-                currentShootJobExpRequired = currentShootJobExpRequired * multiplierExpPerLevel;
-                ShootMiniGameManager.Instance.gameCanvasManager.ShootJobExpBar.SetMaxBarValue(currentShootJobExpRequired);
-                if (remnantExp > 0)
-                {
-                    ChangeShootJobExp((int)(remnantExp));
-                }
-            }
+            ShootLevelUp();
 
             ShootMiniGameManager.Instance.SetCurrentExpRank(this.currentShootJobExp, currentShootJobExpRequired);
         }
@@ -111,6 +100,24 @@ public class PlayerStats : MonoBehaviour
         {
             this.currentShootJobExp = currentShootJobExpRequired;
             ShootMiniGameManager.Instance.SetCurrentExpRank(this.currentShootJobExp, currentShootJobExpRequired);
+        }
+    }
+
+    public void ShootLevelUp()
+    {
+        if (this.currentShootJobExp >= currentShootJobExpRequired && currentShootJobLevel < JobMaxLevel)
+        {
+            currentShootJobLevel++;
+            ShootMiniGameManager.Instance.SetCurrentLevelRankTitle(currentShootJobLevel);
+
+            float remnantExp = this.currentShootJobExp - currentShootJobExpRequired;
+            this.currentShootJobExp = 0;
+            currentShootJobExpRequired = currentShootJobExpRequired * multiplierExpPerLevel;
+            ShootMiniGameManager.Instance.gameCanvasManager.ShootJobExpBar.SetMaxBarValue(currentShootJobExpRequired);
+            if (remnantExp > 0)
+            {
+                ChangeShootJobExp((int)(remnantExp));
+            }
         }
     }
 
