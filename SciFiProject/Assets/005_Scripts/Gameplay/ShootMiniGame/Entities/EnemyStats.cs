@@ -39,6 +39,12 @@ public class EnemyStats : MonoBehaviour
             ShootMiniGameManager.Instance.prestigePointsGained += prestigePointsAtGained;
             ShootMiniGameManager.Instance.expPointsGained += expJobAtGained;
 
+            ShootMiniGameManager.Instance.playerStats.ChangeShootJobExp(ShootMiniGameManager.Instance.expPointsGained);
+            ShootMiniGameManager.Instance.expPointsGained = 0;
+
+            GameCore.Instance.SetPrestigeAmount(ShootMiniGameManager.Instance.playerStats.ChangePrestigePoints(ShootMiniGameManager.Instance.prestigePointsGained));
+            ShootMiniGameManager.Instance.prestigePointsGained = 0;
+
             Destroy(gameObject);
         }
 

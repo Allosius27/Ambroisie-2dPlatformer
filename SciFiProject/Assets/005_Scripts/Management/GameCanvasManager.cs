@@ -15,6 +15,9 @@ public class GameCanvasManager : MonoBehaviour
     public StatBar MoodBar => moodBar;
 
     public StatBar ShootHealthBar => shootHealthBar;
+    public StatBar ShootJobExpBar => shootJobExpBar;
+    public Text ShootJobExpLabelText => shootJobExpLabelText;
+    public Text ShootJobExpAmountText => shootJobExpAmountText;
 
     public Text DateAmountText => dateAmountText;
 
@@ -26,6 +29,9 @@ public class GameCanvasManager : MonoBehaviour
     [SerializeField] private StatBar moodBar;
 
     [SerializeField] private StatBar shootHealthBar;
+    [SerializeField] private StatBar shootJobExpBar;
+    [SerializeField] private Text shootJobExpLabelText;
+    [SerializeField] private Text shootJobExpAmountText;
 
     [SerializeField] private Text dateAmountText;
 

@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class StatBar : MonoBehaviour
 {
-    public Slider slider { get; protected set; }
+    public Slider slider;
 
     private void Awake()
     {
-        slider = GetComponent<Slider>();
+        if(slider == null)
+            slider = GetComponent<Slider>();
     }
 
     public void SetMaxBarValue(float duration)

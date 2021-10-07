@@ -26,22 +26,7 @@ public class RingEntrance : MonoBehaviour
     {
         if (Input.GetKeyDown(activeMiniGameKey) && canLaunchMiniGame)
         {
-            GameCore.Instance.MainCameraCtrl.gameObject.SetActive(false);
-            GameCore.Instance.ShootCameraCtrl.gameObject.SetActive(true);
-
-            GameCore.Instance.WorldHub.SetActive(false);
-            GameCore.Instance.WorldShootMiniGame.SetActive(true);
-
-            GameCore.Instance.GetGameCanvasManager().HealthBar.gameObject.SetActive(false);
-            GameCore.Instance.GetGameCanvasManager().ShootHealthBar.gameObject.SetActive(true);
-
-
-            Player _player = FindObjectOfType<Player>();
-            _player.canControl = false;
-            _player.transform.position = GameCore.Instance.ShootMiniGamePlayerSpawnPoint.transform.position;
-            GameCore.Instance.GetGameCanvasManager().ShootHealthBar.SetMaxBarValue(_player.GetComponent<PlayerStats>().ShootHealth);
-
-            GameCore.Instance.shootMiniGameActive = true;
+            GameCore.Instance.SetStateShootMiniGame(true);
         }
 
         if (canLaunchMiniGame)

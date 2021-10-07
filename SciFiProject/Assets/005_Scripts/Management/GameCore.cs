@@ -9,6 +9,8 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
     private GameCanvasManager gameCanvasManager;
     private PlayerStats playerStats;
 
+    private RingEntrance ringEntrance;
+
     private float countTimer;
 
     private bool resetMoodPlayer;
@@ -63,6 +65,8 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
         gameCanvasManager = FindObjectOfType<GameCanvasManager>();
         playerStats = FindObjectOfType<PlayerStats>();
+
+        ringEntrance = FindObjectOfType<RingEntrance>();
     }
 
     private void Start()
@@ -111,6 +115,36 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
                 resetMoodPlayer = false;
             }
         }
+    }
+
+    public void SetStateShootMiniGame(bool value)
+    {
+        MainCameraCtrl.gameObject.SetActive(!value);
+        ShootCameraCtrl.gameObject.SetActive(value);
+
+        WorldHub.SetActive(!value);
+        WorldShootMiniGame.SetActive(value);
+
+        GetGameCanvasManager().HealthBar.gameObject.SetActive(!value);
+        GetGameCanvasManager().ShootHealthBar.gameObject.SetActive(value);
+        GetGameCanvasManager().ShootJobExpBar.gameObject.SetActive(value);
+
+
+        Player _player = playerStats.GetComponent<Player>();
+        _player.canControl = !value;
+
+        if (value == true)
+        {
+            _player.transform.position = shootMiniGamePlayerSpawnPoint.transform.position;
+            playerStats.SetShootHealth(playerStats.baseShootHealth);
+            GetGameCanvasManager().ShootHealthBar.SetMaxBarValue(playerStats.ShootHealth);
+        }
+        else
+        {
+            _player.transform.position = ringEntrance.transform.position;
+        }
+
+        shootMiniGameActive = value;
     }
 
     IEnumerator TimerResetMoodPlayer()

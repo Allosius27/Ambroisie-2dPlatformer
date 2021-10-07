@@ -35,7 +35,7 @@ public class PlayerShoot : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButton("Shoot") && GameCore.Instance.shootMiniGameActive)
+        if (Input.GetButtonDown("Shoot") && GameCore.Instance.shootMiniGameActive)
         {
             Shoot();
         }
