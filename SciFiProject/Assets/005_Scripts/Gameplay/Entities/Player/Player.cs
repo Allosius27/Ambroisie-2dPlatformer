@@ -30,9 +30,15 @@ public class Player : MonoBehaviour
 	#region Properties
 	public bool canControl { get; set; }
 
+	public bool isFemale { get; set; }
+
 	#endregion
 
 	#region UnityInspector
+
+	[SerializeField] private Sprite maleSprite, femaleSprite;
+
+	[Space]
 
 	public Transform graphics;
 	public Animator animator;
@@ -59,6 +65,8 @@ public class Player : MonoBehaviour
 		rb = GetComponent<Rigidbody2D>();
 
 		controller = GetComponent<PlayerController>();
+
+		
     }
 
     void Start()
@@ -69,6 +77,8 @@ public class Player : MonoBehaviour
 		gravity = -(2 * jumpHeight) / Mathf.Pow(timeToJumpApex, 2);
 		jumpVelocity = Mathf.Abs(gravity) * timeToJumpApex;
 		print("Gravity: " + gravity + "  Jump Velocity: " + jumpVelocity);
+
+		//Debug.Log(animator.GetLayerName(1));
 	}
 
     private void FixedUpdate()

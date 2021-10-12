@@ -16,6 +16,10 @@ public class Shop : MonoBehaviour
 
     public PlayerStats PlayerStats => playerStats;
 
+    public Magasin magasin { get; set; }
+
+    public bool buyEffected { get; set; }
+
     #endregion
 
     #region UnityInspector
@@ -24,6 +28,8 @@ public class Shop : MonoBehaviour
     [SerializeField] private GameObject scrollViewContent;
 
     [SerializeField] private ShopItemButton prefabItemToBuyButton;
+
+    [SerializeField] private GameObject prefabColisRobot;
 
     #endregion
 
@@ -72,10 +78,24 @@ public class Shop : MonoBehaviour
 
     public void CloseShopMenu()
     {
+        if (buyEffected)
+        {
+            buyEffected = false;
+
+            Player _player = FindObjectOfType<Player>();
+
+            GameObject colisRobot = Instantiate(prefabColisRobot, magasin.ColisRobotSpawnPoint.position, magasin.ColisRobotSpawnPoint.rotation);
+            colisRobot.GetComponent<ColisRobotCtrl>().target = _player.gameObject.transform;
+        }
+        else
+        {
+            Player _player = FindObjectOfType<Player>();
+            _player.canControl = true;
+        }
+
         ActiveShopMenu(false);
 
-        Player _player = FindObjectOfType<Player>();
-        _player.canControl = true;
+        
     }
 
     #endregion

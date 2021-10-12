@@ -12,10 +12,18 @@ public class Magasin : MonoBehaviour
 
     #endregion
 
+    #region Properties
+
+    public Transform ColisRobotSpawnPoint => colisRobotSpawnPoint;
+
+    #endregion
+
     #region UnityInspector
 
     [SerializeField] private KeyCode activeShopMenuKey = KeyCode.E;
     [SerializeField] private GameObject displayKeyShopMenuToInput;
+
+    [SerializeField] private Transform colisRobotSpawnPoint;
 
     #endregion
 
@@ -36,6 +44,7 @@ public class Magasin : MonoBehaviour
         if(Input.GetKeyDown(activeShopMenuKey) && canOpenShopMenu)
         {
             shop.ActiveShopMenu(true);
+            shop.magasin = this;
 
             Player _player = FindObjectOfType<Player>();
             _player.canControl = false;

@@ -8,9 +8,17 @@ public class PlayerShoot : MonoBehaviour
 
     private PlayerStats playerStats;
 
+    
+
     #endregion
 
     #region Properties
+
+    public GameObject PrefabPlayerMaleTower => prefabPlayerMaleTower;
+    public GameObject PrefabPlayerFemaleTower => prefabPlayerFemaleTower;
+    public GameObject currentPrefabPlayerTower { get; set; }
+
+    public Transform TurretPoint => turretPoint;
 
     public bool is_firing { get; protected set; }
 
@@ -26,7 +34,12 @@ public class PlayerShoot : MonoBehaviour
 
     #region UnityInspector
 
+    [SerializeField] private GameObject prefabPlayerMaleTower, prefabPlayerFemaleTower;
+
+    [Space]
+
     [SerializeField] private Transform firePoint;
+    [SerializeField] private Transform turretPoint;
 
     [SerializeField] private GameObject bulletPrefab;
 

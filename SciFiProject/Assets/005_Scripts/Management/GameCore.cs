@@ -133,14 +133,42 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         Player _player = playerStats.GetComponent<Player>();
         _player.canControl = !value;
 
+        _player.graphics.GetComponent<SpriteRenderer>().enabled = !value;
+        _player.graphics.GetComponent<Animator>().enabled = !value;
+
         if (value == true)
         {
+            PlayerShoot _playerShoot = playerStats.GetComponent<PlayerShoot>();
+            if (_player.isFemale)
+            {
+                GameObject _turret = Instantiate(_playerShoot.PrefabPlayerFemaleTower);
+                _turret.transform.SetParent(_playerShoot.TurretPoint);
+                _turret.transform.localPosition = Vector3.zero;
+                _turret.transform.rotation = Quaternion.identity;
+                _playerShoot.currentPrefabPlayerTower = _turret;
+            }
+            else
+            {
+                GameObject _turret = Instantiate(_playerShoot.PrefabPlayerMaleTower);
+                _turret.transform.SetParent(_playerShoot.TurretPoint);
+                _turret.transform.localPosition = Vector3.zero;
+                _turret.transform.rotation = Quaternion.identity;
+                _playerShoot.currentPrefabPlayerTower = _turret;
+            }
+
+            _playerShoot.currentPrefabPlayerTower.GetComponent<PlayerVisual>().Anim.SetLayerWeight(1, 1);
+
             _player.transform.position = shootMiniGamePlayerSpawnPoint.transform.position;
             playerStats.SetShootHealth(playerStats.baseShootHealth);
             GetGameCanvasManager().ShootHealthBar.SetMaxBarValue(playerStats.ShootHealth);
         }
         else
         {
+
+            PlayerShoot _playerShoot = playerStats.GetComponent<PlayerShoot>();
+            Destroy(_playerShoot.currentPrefabPlayerTower);
+
+
             _player.transform.position = ringEntrance.transform.position;
         }
 

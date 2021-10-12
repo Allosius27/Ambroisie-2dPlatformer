@@ -58,6 +58,10 @@ public class ShopItemButton : MonoBehaviour
         if (itemBought == false && shop.PlayerStats.PrestigePoints >= cost)
         {
             itemBought = true;
+            if(shop.buyEffected == false)
+            {
+                shop.buyEffected = true;
+            }
 
             GameCore.Instance.SetPrestigeAmount(shop.PlayerStats.ChangePrestigePoints(-cost));
 
