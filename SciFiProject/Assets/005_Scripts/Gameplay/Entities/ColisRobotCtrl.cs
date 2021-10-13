@@ -25,6 +25,8 @@ public class ColisRobotCtrl : MonoBehaviour
     public float speed;
 
     [SerializeField] private Transform destinationPoint;
+    [SerializeField] private Transform boxSpawnPoint;
+    [SerializeField] private Transform pivotPoint;
 
     [SerializeField] private Animator anim;
 
@@ -41,13 +43,20 @@ public class ColisRobotCtrl : MonoBehaviour
         anim.SetBool("IsWalking", true);
     }
 
+    private void Start()
+    {
+        transform.Rotate(RotateChange);
+    }
+
     private void Update()
     {
         Vector3 dir = target.position - transform.position;
-        transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
+        dir.Normalize();
+        transform.position = new Vector3(transform.position.x + speed * Time.deltaTime * dir.x, transform.position.y, transform.position.z);
+        //transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
 
         // Si l'ennemi est quasiment arrivé à sa destination
-        if (Vector3.Distance(transform.position, target.position) < 0.3f)
+        if (Vector3.Distance(pivotPoint.position, target.position) < 0.3f)
         {
             if (!playerReached)
             {
@@ -66,8 +75,11 @@ public class ColisRobotCtrl : MonoBehaviour
 
     public void ActionColis()
     {
-        Instantiate(prefabColis, transform.position, transform.rotation);
+        Instantiate(prefabColis, boxSpawnPoint.position, boxSpawnPoint.rotation);
         anim.SetBool("Leave", true);
         speed = baseSpeed;
+        PlayerStats playerStats = FindObjectOfType<PlayerStats>();
+        playerStats.TakeDamage(-1000);
+        Destroy(gameObject, 5f);
     }
 }

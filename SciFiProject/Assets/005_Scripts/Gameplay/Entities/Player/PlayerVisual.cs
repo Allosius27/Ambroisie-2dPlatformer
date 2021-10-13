@@ -14,5 +14,12 @@ public class PlayerVisual : MonoBehaviour
 
     [SerializeField] private Animator anim;
 
+    [SerializeField] private PlayerStats playerStats;
+
     #endregion
+
+    public void PlayerResurect()
+    {
+        playerStats.PlayerResurect();
+    }
 }

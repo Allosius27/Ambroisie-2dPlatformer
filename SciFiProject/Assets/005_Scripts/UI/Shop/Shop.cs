@@ -85,7 +85,7 @@ public class Shop : MonoBehaviour
             Player _player = FindObjectOfType<Player>();
 
             GameObject colisRobot = Instantiate(prefabColisRobot, magasin.ColisRobotSpawnPoint.position, magasin.ColisRobotSpawnPoint.rotation);
-            colisRobot.GetComponent<ColisRobotCtrl>().target = _player.gameObject.transform;
+            colisRobot.transform.GetChild(0).GetComponent<ColisRobotCtrl>().target = _player.gameObject.transform;
         }
         else
         {

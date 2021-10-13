@@ -43,11 +43,15 @@ public class Magasin : MonoBehaviour
     {
         if(Input.GetKeyDown(activeShopMenuKey) && canOpenShopMenu)
         {
-            shop.ActiveShopMenu(true);
-            shop.magasin = this;
-
             Player _player = FindObjectOfType<Player>();
-            _player.canControl = false;
+
+            if (_player.canControl)
+            {
+                shop.ActiveShopMenu(true);
+                shop.magasin = this;
+
+                _player.canControl = false;
+            }
         }
 
         if(canOpenShopMenu && GameCore.Instance.shopMenuIsOpen == false)

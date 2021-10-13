@@ -78,6 +78,21 @@ public class PlayerStats : MonoBehaviour
         return this.health;
     }
 
+    public void TakeDamage(float amount)
+    {
+        if(ChangeHealth(amount) <= 0)
+        {
+            GetComponent<Player>().animator.SetTrigger("death");
+            GetComponent<Player>().canControl = false;
+        }
+    }
+
+    public void PlayerResurect()
+    {
+        GetComponent<Player>().animator.SetTrigger("resurect");
+        GetComponent<Player>().canControl = true;
+    }
+
     public float ChangeMood(float amount)
     {
         this.mood += amount;
@@ -164,7 +179,6 @@ public class PlayerStats : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         var Enemies = FindObjectsOfType<Enemy>();
-
 
         GameCore.Instance.SetStateShootMiniGame(false);
 
