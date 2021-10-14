@@ -6,6 +6,8 @@ public class PlayerStats : MonoBehaviour
 {
     #region Fields
 
+    private float maxHealth;
+
     PlayerShoot playerShoot;
 
     #endregion
@@ -63,13 +65,13 @@ public class PlayerStats : MonoBehaviour
         baseShootHealth = shootHealth;
 
         currentShootJobExpRequired = baseExpRequired;
+
+        maxHealth = this.health;
     }
 
     private void Start()
     {
         GameCore.Instance.SetPrestigeAmount(prestigePoints);
-
-       
     }
 
     public float ChangeHealth(float amount)
@@ -90,6 +92,7 @@ public class PlayerStats : MonoBehaviour
     public void PlayerResurect()
     {
         GetComponent<Player>().animator.SetTrigger("resurect");
+        this.health = maxHealth;
         GetComponent<Player>().canControl = true;
     }
 

@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class ColorMachine : MonoBehaviour
 {
+    #region Properties
+
+    public List<Color> ListRandomColors => listRandomColors;
+
+    #endregion
+
     #region UnityInspector
 
     [SerializeField] private GameObject colorSquare;
