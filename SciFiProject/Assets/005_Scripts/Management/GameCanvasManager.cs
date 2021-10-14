@@ -21,6 +21,8 @@ public class GameCanvasManager : MonoBehaviour
 
     public Text DateAmountText => dateAmountText;
 
+    public GameObject BabiesFactoryTimer => babiesFactoryTimer;
+
     #endregion
 
     #region UnityInspector
@@ -36,6 +38,8 @@ public class GameCanvasManager : MonoBehaviour
     [SerializeField] private Text dateAmountText;
 
     [SerializeField] private Text prestigeAmountText;
+
+    [SerializeField] private GameObject babiesFactoryTimer;
 
     #endregion
 

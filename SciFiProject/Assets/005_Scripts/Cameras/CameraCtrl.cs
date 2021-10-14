@@ -17,6 +17,8 @@ public class CameraCtrl : MonoBehaviour
 
     public bool triggerY { get; set; }
 
+    public GameObject Player => player;
+
     #endregion
 
     #region UnityInspector
@@ -53,5 +55,10 @@ public class CameraCtrl : MonoBehaviour
         {
             transform.position = Vector3.SmoothDamp(transform.position, new Vector3(player.transform.position.x + posOffset.x, transform.position.y, player.transform.position.z + posOffset.z), ref velocity, timeOffset);
         }
+    }
+
+    public void SetPlayer(GameObject _object)
+    {
+        player = _object;
     }
 }

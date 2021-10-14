@@ -21,6 +21,7 @@ public class BabyFactoryEntrance : Entrance
         if (Input.GetKeyDown(ActiveMiniGameKey) && CanLaunchMiniGame)
         {
             Debug.Log("Baby Factory Entrance");
+            GameCore.Instance.SetStateBabiesMiniGame(true);
         }
     }
 }

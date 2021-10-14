@@ -9,6 +9,7 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
     private GameCanvasManager gameCanvasManager;
     private PlayerStats playerStats;
 
+    private BabyFactoryEntrance babyFactoryEntrance;
     private RingEntrance ringEntrance;
 
     private float countTimer;
@@ -48,12 +49,17 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     [SerializeField] private CameraCtrl mainCameraCtrl;
     [SerializeField] private CameraCtrl shootCameraCtrl;
+    [SerializeField] private CameraCtrl babiesCameraCtrl;
 
     [Space]
 
     [SerializeField] private GameObject worldHub;
+    [Space]
     [SerializeField] private GameObject worldShootMiniGame;
     [SerializeField] private GameObject shootMiniGamePlayerSpawnPoint;
+    [Space]
+    [SerializeField] private GameObject worldBabiesMiniGame;
+    [SerializeField] private GameObject babiesFactoryMiniGamePlayerSpawnPoint;
 
     #endregion
 
@@ -66,6 +72,7 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         gameCanvasManager = FindObjectOfType<GameCanvasManager>();
         playerStats = FindObjectOfType<PlayerStats>();
 
+        babyFactoryEntrance = FindObjectOfType<BabyFactoryEntrance>();
         ringEntrance = FindObjectOfType<RingEntrance>();
     }
 
@@ -115,6 +122,36 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
                 resetMoodPlayer = false;
             }
         }
+    }
+
+    public void SetStateBabiesMiniGame(bool value)
+    {
+        mainCameraCtrl.gameObject.SetActive(!value);
+        babiesCameraCtrl.gameObject.SetActive(value);
+        babiesCameraCtrl.SetPlayer(BabiesFactoryMiniGameManager.Instance.ColorMachine);
+
+        worldHub.SetActive(!value);
+        worldBabiesMiniGame.SetActive(value);
+
+        GetGameCanvasManager().BabiesFactoryTimer.SetActive(value);
+
+        Player _player = playerStats.GetComponent<Player>();
+        _player.canControl = !value;
+
+        _player.graphics.GetComponent<SpriteRenderer>().enabled = !value;
+        _player.graphics.GetComponent<Animator>().enabled = !value;
+
+        if(value == true)
+        {
+            _player.transform.position = babiesFactoryMiniGamePlayerSpawnPoint.transform.position;
+        }
+        else
+        {
+            _player.transform.position = babyFactoryEntrance.transform.position;
+        }
+
+        BabiesFactoryMiniGameManager.Instance.ColorMachine.GetComponent<ColorMachine>().SetColorSquare();
+
     }
 
     public void SetStateShootMiniGame(bool value)
