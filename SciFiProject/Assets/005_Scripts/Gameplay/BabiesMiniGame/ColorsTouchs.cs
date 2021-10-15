@@ -6,7 +6,7 @@ public class ColorsTouchs : MonoBehaviour
 {
     #region UnityInspector
 
-    [SerializeField] private List<GameObject> listColorsTouchs = new List<GameObject>();
+    [SerializeField] private List<ColorTouchCtrl> listColorsTouchs = new List<ColorTouchCtrl>();
 
     #endregion
 
@@ -16,17 +16,18 @@ public class ColorsTouchs : MonoBehaviour
     {
         for (int i = 0; i < listColorsTouchs.Count; i++)
         {
-            listColorsTouchs[i].SetActive(false);
+            listColorsTouchs[i].gameObject.SetActive(false);
         }
     }
 
     public void SetColorsTouchs()
     {
-        List<Color> randomColors = BabiesFactoryMiniGameManager.Instance.ColorMachine.GetComponent<ColorMachine>().ListRandomColors;
+        List<Color> randomColors = BabiesFactoryMiniGameManager.Instance.ColorMachine.ListRandomColors;
         for (int i = 0; i < randomColors.Count; i++)
         {
-            listColorsTouchs[i].SetActive(true);
+            listColorsTouchs[i].gameObject.SetActive(true);
             listColorsTouchs[i].GetComponent<SpriteRenderer>().color = randomColors[i];
+            listColorsTouchs[i].currentColor = randomColors[i];
         }
     }
 

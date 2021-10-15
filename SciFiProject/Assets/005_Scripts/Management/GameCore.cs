@@ -132,7 +132,7 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
         mainCameraCtrl.gameObject.SetActive(!value);
         babiesCameraCtrl.gameObject.SetActive(value);
-        babiesCameraCtrl.SetPlayer(BabiesFactoryMiniGameManager.Instance.ColorMachine);
+        babiesCameraCtrl.SetPlayer(BabiesFactoryMiniGameManager.Instance.ColorMachine.gameObject);
 
 
         GetGameCanvasManager().BabiesFactoryTimer.SetActive(value);
@@ -148,9 +148,15 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         {
             _player.transform.position = babiesFactoryMiniGamePlayerSpawnPoint.transform.position;
 
-            BabiesFactoryMiniGameManager.Instance.ColorMachine.GetComponent<ColorMachine>().SetColorSquare();
+            BabiesFactoryMiniGameManager.Instance.ColorMachine.SetColorSquare();
             BabiesFactoryMiniGameManager.Instance.ColorsTouchs.ActiveColorsTouchs(false);
             BabiesFactoryMiniGameManager.Instance.ColorsTouchs.SetColorsTouchs();
+
+            BabiesFactoryMiniGameManager.Instance.ColorsCapsules.ReinitColorsCapsulesColors();
+            BabiesFactoryMiniGameManager.Instance.ReinitColorTapisPosition();
+            BabiesFactoryMiniGameManager.Instance.ColorsCapsules.currentIndexColorCapsule = 0;
+
+            BabiesFactoryMiniGameManager.Instance.ReinitCountTime();
         }
         else
         {

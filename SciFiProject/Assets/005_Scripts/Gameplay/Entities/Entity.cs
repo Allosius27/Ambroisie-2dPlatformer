@@ -10,6 +10,7 @@ public class Entity : MonoBehaviour
         Player,
         Ground,
         Enemy,
+        ColorCapsule,
     }
     public Type type;
 }
