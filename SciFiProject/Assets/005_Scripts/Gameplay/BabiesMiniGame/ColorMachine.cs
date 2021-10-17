@@ -28,6 +28,9 @@ public class ColorMachine : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
 
+    [SerializeField] private int prestigePointsAtGained;
+    [SerializeField] private int expJobAtGained;
+
     #endregion
 
     #region Behaviour
@@ -57,6 +60,8 @@ public class ColorMachine : MonoBehaviour
         bullet.GetComponent<ColorMachineBullet>().direction = new Vector3(0, -1, 0);
         bullet.GetComponent<ColorMachineBullet>().speed = bulletSpeed;
         bullet.GetComponent<ColorMachineBullet>().bulletColor = currentColor;
+        bullet.GetComponent<ColorMachineBullet>().ExpJobAtGained = expJobAtGained;
+        bullet.GetComponent<ColorMachineBullet>().PrestigePointsAtGained = prestigePointsAtGained;
 
         bullet.GetComponent<SpriteRenderer>().color = currentColor;
     }

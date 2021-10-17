@@ -12,13 +12,13 @@ public class ShootMiniGameManager : AllosiusDev.Singleton<ShootMiniGameManager>
 
     public int expPointsGained { get; set; }
 
-    public List<LevelRank> LevelRankTitle => levelRanks;
+    public List<ShootLevelRank> LevelRankTitle => levelRanks;
 
     #endregion
 
     #region UnityInspector
 
-    [SerializeField] private List<LevelRank> levelRanks = new List<LevelRank>();
+    [SerializeField] private List<ShootLevelRank> levelRanks = new List<ShootLevelRank>();
 
     #endregion
 

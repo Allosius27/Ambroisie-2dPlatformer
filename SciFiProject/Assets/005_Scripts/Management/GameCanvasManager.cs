@@ -22,6 +22,9 @@ public class GameCanvasManager : MonoBehaviour
     public Text DateAmountText => dateAmountText;
 
     public GameObject BabiesFactoryTimer => babiesFactoryTimer;
+    public StatBar BabiesJobExpBar => babiesJobExpBar;
+    public Text BabiesJobExpLabelText => babiesJobExpLabelText;
+    public Text BabiesJobExpAmountText => babiesJobExpAmountText;
 
     #endregion
 
@@ -30,16 +33,29 @@ public class GameCanvasManager : MonoBehaviour
     [SerializeField] private StatBar healthBar;
     [SerializeField] private StatBar moodBar;
 
+    [Space]
+
     [SerializeField] private StatBar shootHealthBar;
     [SerializeField] private StatBar shootJobExpBar;
     [SerializeField] private Text shootJobExpLabelText;
     [SerializeField] private Text shootJobExpAmountText;
 
+    [Space]
+
     [SerializeField] private Text dateAmountText;
 
     [SerializeField] private Text prestigeAmountText;
 
+    [Space]
+
     [SerializeField] private GameObject babiesFactoryTimer;
+    [SerializeField] private StatBar babiesJobExpBar;
+    [SerializeField] private Text babiesJobExpLabelText;
+    [SerializeField] private Text babiesJobExpAmountText;
+
+    [Space]
+
+    [SerializeField] private Animator fadingImageAnimator;
 
     #endregion
 
@@ -48,6 +64,11 @@ public class GameCanvasManager : MonoBehaviour
     public void SetPrestigeAmountText(int amount)
     {
         prestigeAmountText.text = amount.ToString();
+    }
+
+    public void LaunchFadeImage()
+    {
+        fadingImageAnimator.SetTrigger("Fade");
     }
 
     #endregion

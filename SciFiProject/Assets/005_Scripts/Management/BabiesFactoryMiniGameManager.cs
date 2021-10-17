@@ -28,6 +28,15 @@ public class BabiesFactoryMiniGameManager : AllosiusDev.Singleton<BabiesFactoryM
     public ColorsTouchs ColorsTouchs => colorsTouchs;
     public ColorsCapsules ColorsCapsules => colorsCapsules;
 
+
+    public PlayerStats playerStats { get; protected set; }
+
+    public int prestigePointsGained { get; set; }
+
+    public int expPointsGained { get; set; }
+
+    public List<LevelRank> LevelRankTitle => levelRanks;
+
     #endregion
 
     #region UnityInspector
@@ -45,6 +54,10 @@ public class BabiesFactoryMiniGameManager : AllosiusDev.Singleton<BabiesFactoryM
 
     [SerializeField] private float countTime;
 
+    [Space]
+
+    [SerializeField] private List<LevelRank> levelRanks = new List<LevelRank>();
+
     #endregion
 
     #region Behaviour
@@ -58,6 +71,30 @@ public class BabiesFactoryMiniGameManager : AllosiusDev.Singleton<BabiesFactoryM
         baseColorTapisPosition = colorTapis.transform.position;
 
         baseColorTapisMoveSpeed = colorTapisMoveSpeed;
+
+        playerStats = FindObjectOfType<PlayerStats>();
+    }
+
+    private void Start()
+    {
+        GameCore.Instance.GetGameCanvasManager().BabiesJobExpBar.SetMaxBarValue(playerStats.currentBabiesFactoryJobExpRequired);
+        GameCore.Instance.GetGameCanvasManager().BabiesJobExpBar.SetBarValue(playerStats.currentBabiesFactoryJobExp);
+        SetCurrentExpRank(playerStats.currentBabiesFactoryJobExp, playerStats.currentBabiesFactoryJobExpRequired);
+
+        SetCurrentLevelRankTitle(playerStats.currentBabiesFactoryJobLevel);
+    }
+
+    public void SetCurrentLevelRankTitle(int playerJobLevel)
+    {
+        GameCore.Instance.GetGameCanvasManager().BabiesJobExpLabelText.text = levelRanks[playerJobLevel].title + " :";
+    }
+
+    public void SetCurrentExpRank(float playerCurrentJobExp, float playerCurrentJobExpRequired)
+    {
+        GameCore.Instance.GetGameCanvasManager().BabiesJobExpBar.SetBarValue(playerCurrentJobExp);
+        int _playerCurrentJobExp = (int)(playerCurrentJobExp);
+        int _playerCurrentJobExpRequired = (int)(playerCurrentJobExpRequired);
+        GameCore.Instance.GetGameCanvasManager().BabiesJobExpAmountText.text = _playerCurrentJobExp.ToString() + "/" + _playerCurrentJobExpRequired;
     }
 
     public void ReinitColorTapisPosition()
@@ -75,8 +112,12 @@ public class BabiesFactoryMiniGameManager : AllosiusDev.Singleton<BabiesFactoryM
         colorsCapsules.currentIndexColorCapsule++;
         if(colorsCapsules.currentIndexColorCapsule >= colorsCapsules.ListColorsCapsules.Count)
         {
-            colorsCapsules.currentIndexColorCapsule = colorsCapsules.ListColorsCapsules.Count - 1;
-            return;
+            GameCore.Instance.GetGameCanvasManager().LaunchFadeImage();
+            ColorsCapsules.ReinitColorsCapsulesColors();
+            ReinitColorTapisPosition();
+            colorsCapsules.currentIndexColorCapsule = 0;
+            //colorsCapsules.currentIndexColorCapsule = colorsCapsules.ListColorsCapsules.Count - 1;
+            //return;
         }
 
         colorTapisTarget = colorsCapsules.ListColorsCapsules[colorsCapsules.currentIndexColorCapsule].transform;

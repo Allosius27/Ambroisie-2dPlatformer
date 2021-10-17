@@ -127,6 +127,8 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     public void SetStateBabiesMiniGame(bool value)
     {
+        GetGameCanvasManager().LaunchFadeImage();
+
         worldHub.SetActive(!value);
         worldBabiesMiniGame.SetActive(value);
 
@@ -136,6 +138,7 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
 
         GetGameCanvasManager().BabiesFactoryTimer.SetActive(value);
+        GetGameCanvasManager().BabiesJobExpBar.gameObject.SetActive(value);
 
         Player _player = playerStats.GetComponent<Player>();
         _player.canControl = !value;

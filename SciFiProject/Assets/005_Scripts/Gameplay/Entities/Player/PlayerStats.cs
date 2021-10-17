@@ -31,6 +31,10 @@ public class PlayerStats : MonoBehaviour
     public float currentShootJobExpRequired { get; set; }
     public int currentShootJobLevel { get; set; }
 
+    public float currentBabiesFactoryJobExp { get; set; }
+    public float currentBabiesFactoryJobExpRequired { get; set; }
+    public int currentBabiesFactoryJobLevel { get; set; }
+
     #endregion
 
     #region UnityInspector
@@ -65,6 +69,7 @@ public class PlayerStats : MonoBehaviour
         baseShootHealth = shootHealth;
 
         currentShootJobExpRequired = baseExpRequired;
+        currentBabiesFactoryJobExpRequired = baseExpRequired;
 
         maxHealth = this.health;
     }
@@ -106,6 +111,42 @@ public class PlayerStats : MonoBehaviour
     {
         this.prestigePoints += amount;
         return this.prestigePoints;
+    }
+
+    public void ChangeBabiesFactoryJobExp(int amount)
+    {
+        if (this.currentBabiesFactoryJobExp < currentBabiesFactoryJobExpRequired)
+        {
+            this.currentBabiesFactoryJobExp += amount;
+
+            BabiesFactoryLevelUp();
+
+            BabiesFactoryMiniGameManager.Instance.SetCurrentExpRank(this.currentBabiesFactoryJobExp, currentBabiesFactoryJobExpRequired);
+        }
+        else
+        {
+            this.currentBabiesFactoryJobExp = currentBabiesFactoryJobExpRequired;
+            BabiesFactoryMiniGameManager.Instance.SetCurrentExpRank(this.currentBabiesFactoryJobExp, currentBabiesFactoryJobExpRequired);
+        }
+    }
+
+    public void BabiesFactoryLevelUp()
+    {
+        if (this.currentBabiesFactoryJobExp >= currentBabiesFactoryJobExpRequired && currentBabiesFactoryJobLevel < JobMaxLevel)
+        {
+            currentBabiesFactoryJobLevel++;
+            BabiesFactoryMiniGameManager.Instance.SetCurrentLevelRankTitle(currentBabiesFactoryJobLevel);
+
+
+            float remnantExp = this.currentBabiesFactoryJobExp - currentBabiesFactoryJobExpRequired;
+            this.currentBabiesFactoryJobExp = 0;
+            currentBabiesFactoryJobExpRequired = currentBabiesFactoryJobExpRequired * multiplierExpPerLevel;
+            GameCore.Instance.GetGameCanvasManager().BabiesJobExpBar.SetMaxBarValue(currentBabiesFactoryJobExpRequired);
+            if (remnantExp > 0)
+            {
+                ChangeBabiesFactoryJobExp((int)(remnantExp));
+            }
+        }
     }
 
     public void ChangeShootJobExp(int amount)

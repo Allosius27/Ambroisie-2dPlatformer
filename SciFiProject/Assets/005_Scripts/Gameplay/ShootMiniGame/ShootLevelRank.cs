@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class LevelRank
+public class ShootLevelRank : LevelRank
 {
-    public string title;
-
     public Sprite bulletSprite;
 }

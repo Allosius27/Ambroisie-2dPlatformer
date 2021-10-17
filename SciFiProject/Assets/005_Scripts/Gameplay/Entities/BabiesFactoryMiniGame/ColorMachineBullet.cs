@@ -8,6 +8,9 @@ public class ColorMachineBullet : Bullet
 
     public Color bulletColor { get; set; }
 
+    public int PrestigePointsAtGained { get; set; }
+    public int ExpJobAtGained { get; set; }
+
     #endregion
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -25,8 +28,23 @@ public class ColorMachineBullet : Bullet
             BabiesFactoryMiniGameManager.Instance.MoveTapis();
             BabiesFactoryMiniGameManager.Instance.ColorMachine.SetColorSquare();
             BabiesFactoryMiniGameManager.Instance.ColorsTouchs.SetColorsTouchs();
+
+            CapsuleFilledRewards();
         }
 
         Destroy(gameObject);
+    }
+
+    public void CapsuleFilledRewards()
+    {
+        BabiesFactoryMiniGameManager.Instance.prestigePointsGained += PrestigePointsAtGained;
+        BabiesFactoryMiniGameManager.Instance.expPointsGained += ExpJobAtGained;
+
+        BabiesFactoryMiniGameManager.Instance.playerStats.ChangeBabiesFactoryJobExp(BabiesFactoryMiniGameManager.Instance.expPointsGained);
+        BabiesFactoryMiniGameManager.Instance.expPointsGained = 0;
+
+        GameCore.Instance.SetPrestigeAmount(BabiesFactoryMiniGameManager.Instance.playerStats.ChangePrestigePoints(BabiesFactoryMiniGameManager.Instance.prestigePointsGained));
+        BabiesFactoryMiniGameManager.Instance.prestigePointsGained = 0;
+
     }
 }
