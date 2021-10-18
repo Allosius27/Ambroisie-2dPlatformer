@@ -49,6 +49,11 @@ public class BabiesFactoryMiniGameManager : AllosiusDev.Singleton<BabiesFactoryM
 
     #region UnityInspector
 
+    [SerializeField] private AllosiusDev.AudioData sfxBabiesSort;
+    [SerializeField] private AllosiusDev.AudioData sfxMoveTapis;
+
+    [Space]
+
     [SerializeField] private GameObject colorTapis;
     [SerializeField] private float colorTapisMoveSpeed;
 
@@ -159,6 +164,7 @@ public class BabiesFactoryMiniGameManager : AllosiusDev.Singleton<BabiesFactoryM
 
         colorTapisTarget = colorsCapsules.ListColorsCapsules[colorsCapsules.currentIndexColorCapsule].transform;
         colorTapisMoving = true;
+        StartCoroutine(PlaySfxMoveTapis());
         colorTapisMoveSpeed = baseColorTapisMoveSpeed;
     }
 
@@ -177,17 +183,32 @@ public class BabiesFactoryMiniGameManager : AllosiusDev.Singleton<BabiesFactoryM
             colorTapis.transform.position = new Vector3(colorTapis.transform.position.x + colorTapisMoveSpeed * Time.deltaTime * dir.x, colorTapis.transform.position.y, colorTapis.transform.position.z);
             //transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
 
+
+
             // Si l'ennemi est quasiment arrivé à sa destination
             if (Vector3.Distance(colorTapis.transform.position, colorTapisTarget.position) < 0.3f)
             {
                 colorTapisMoveSpeed = 0;
                 colorTapisMoving = false;
+                AllosiusDev.AudioManager.Stop(sfxMoveTapis.sound);
                 for (int i = 0; i < colorsMachines.Count; i++)
                 {
                     ColorsMachines[i].canShoot = true;
                 }
                
             }
+        }
+    }
+
+    IEnumerator PlaySfxMoveTapis()
+    {
+        AllosiusDev.AudioManager.Play(sfxMoveTapis.sound);
+
+        yield return new WaitForSeconds(sfxMoveTapis.sound.Clip.length);
+
+        if(colorTapisMoving)
+        {
+            StartCoroutine(PlaySfxMoveTapis());
         }
     }
 
@@ -218,6 +239,8 @@ public class BabiesFactoryMiniGameManager : AllosiusDev.Singleton<BabiesFactoryM
                 Destroy(bullets[i].gameObject);
             }
         }
+
+        AllosiusDev.AudioManager.Play(sfxBabiesSort.sound);
 
         babiesMakeCtrl.babiesSort = true;
         GameCore.Instance.BabiesCameraCtrl.SetPlayer(babiesMakeCtrl.transform.parent.gameObject);

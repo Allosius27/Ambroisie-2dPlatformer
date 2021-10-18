@@ -34,6 +34,10 @@ public class PlayerShoot : MonoBehaviour
 
     #region UnityInspector
 
+    [SerializeField] private AllosiusDev.AudioData sfxBulletShot;
+
+    [Space]
+
     [SerializeField] private GameObject prefabPlayerMaleTower, prefabPlayerFemaleTower;
 
     [Space]
@@ -71,6 +75,8 @@ public class PlayerShoot : MonoBehaviour
         if (is_firing == true)
         {
             // shooting logic
+
+            AllosiusDev.AudioManager.Play(sfxBulletShot.sound);
 
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             bullet.transform.SetParent(firePoint);

@@ -11,6 +11,7 @@ public class RingEntrance : Entrance
 
     #region UnityInspector
 
+    [SerializeField] private AllosiusDev.AudioData sfxEnterMiniGame;
 
     #endregion
 
@@ -20,6 +21,7 @@ public class RingEntrance : Entrance
 
         if (Input.GetKeyDown(ActiveMiniGameKey) && CanLaunchMiniGame)
         {
+            AllosiusDev.AudioManager.Play(sfxEnterMiniGame.sound);
             GameCore.Instance.SetStateShootMiniGame(true);
         }
     }

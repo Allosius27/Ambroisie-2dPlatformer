@@ -39,6 +39,10 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     #region UnityInspector
 
+    [SerializeField] private AllosiusDev.AudioData sfxExitMiniGame;
+
+    [Space]
+
     [SerializeField] private int moodTimeInterval;
     [SerializeField] private int moodLostPerTimeInterval;
 
@@ -178,6 +182,8 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         }
         else
         {
+            AllosiusDev.AudioManager.Play(sfxExitMiniGame.sound);
+
             BabiesFactoryMiniGameManager.Instance.BabiesMakeCtrl.ReinitPosition();
 
             _player.transform.position = babyFactoryEntrance.transform.position;
@@ -235,6 +241,7 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         }
         else
         {
+            AllosiusDev.AudioManager.Play(sfxExitMiniGame.sound);
 
             PlayerShoot _playerShoot = playerStats.GetComponent<PlayerShoot>();
             Destroy(_playerShoot.currentPrefabPlayerTower);

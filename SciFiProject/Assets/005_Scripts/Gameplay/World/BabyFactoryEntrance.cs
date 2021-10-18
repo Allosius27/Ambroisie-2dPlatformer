@@ -11,6 +11,7 @@ public class BabyFactoryEntrance : Entrance
 
     #region UnityInspector
 
+    [SerializeField] private AllosiusDev.AudioData sfxEnterMiniGame;
 
     #endregion
 
@@ -21,6 +22,7 @@ public class BabyFactoryEntrance : Entrance
         if (Input.GetKeyDown(ActiveMiniGameKey) && CanLaunchMiniGame)
         {
             Debug.Log("Baby Factory Entrance");
+            AllosiusDev.AudioManager.Play(sfxEnterMiniGame.sound);
             GameCore.Instance.SetStateBabiesMiniGame(true);
         }
     }

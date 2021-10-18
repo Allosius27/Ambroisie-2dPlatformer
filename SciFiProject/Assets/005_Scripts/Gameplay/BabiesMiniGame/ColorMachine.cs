@@ -26,6 +26,10 @@ public class ColorMachine : MonoBehaviour
 
     #region UnityInspector
 
+    [SerializeField] private AllosiusDev.AudioData sfxColorBulletShot;
+
+    [Space]
+
     [SerializeField] private GameObject colorSquare;
 
     [SerializeField] private float colorChangeTimer;
@@ -110,6 +114,8 @@ public class ColorMachine : MonoBehaviour
             // shooting logic
 
             Debug.Log("Shoot");
+
+            AllosiusDev.AudioManager.Play(sfxColorBulletShot.sound);
 
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             bullet.transform.SetParent(firePoint);

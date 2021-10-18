@@ -11,9 +11,16 @@ public class ColorTouchCtrl : MonoBehaviour, IPointerDownHandler
 
     #endregion
 
+    #region UnityInspector
+
+    [SerializeField] private AllosiusDev.AudioData sfxColorButtonClicked;
+
+    #endregion
+
     public virtual void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log("Mouse Down " + gameObject.name);
+        AllosiusDev.AudioManager.Play(sfxColorButtonClicked.sound);
         for (int i = 0; i < BabiesFactoryMiniGameManager.Instance.NumberOfColorsMachinesActived; i++)
         {
             if (i < BabiesFactoryMiniGameManager.Instance.ColorsMachines.Count && currentColor == BabiesFactoryMiniGameManager.Instance.ColorsMachines[i].CurrentColor)
