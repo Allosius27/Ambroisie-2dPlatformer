@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ColorsTouchs : MonoBehaviour
 {
@@ -22,11 +23,12 @@ public class ColorsTouchs : MonoBehaviour
 
     public void SetColorsTouchs()
     {
-        List<Color> randomColors = BabiesFactoryMiniGameManager.Instance.ColorMachine.ListRandomColors;
+        List<Color> randomColors = BabiesFactoryMiniGameManager.Instance.ColorsMachines[0].ListRandomColors;
         for (int i = 0; i < randomColors.Count; i++)
         {
             listColorsTouchs[i].gameObject.SetActive(true);
-            listColorsTouchs[i].GetComponent<SpriteRenderer>().color = randomColors[i];
+            //listColorsTouchs[i].GetComponent<SpriteRenderer>().color = randomColors[i];
+            listColorsTouchs[i].GetComponent<Image>().color = randomColors[i];
             listColorsTouchs[i].currentColor = randomColors[i];
         }
     }

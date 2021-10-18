@@ -25,8 +25,15 @@ public class ColorMachineBullet : Bullet
         if(typeCollision.type == Entity.Type.ColorCapsule)
         {
             typeCollision.GetComponent<SpriteRenderer>().color = bulletColor;
+            typeCollision.GetComponent<ColorCapsule>().isFilled = true;
             BabiesFactoryMiniGameManager.Instance.MoveTapis();
-            BabiesFactoryMiniGameManager.Instance.ColorMachine.SetColorSquare();
+            for (int i = 0; i < BabiesFactoryMiniGameManager.Instance.NumberOfColorsMachinesActived; i++)
+            {
+                if (i < BabiesFactoryMiniGameManager.Instance.ColorsMachines.Count)
+                {
+                    BabiesFactoryMiniGameManager.Instance.ColorsMachines[i].SetColorSquare();
+                }
+            }
             BabiesFactoryMiniGameManager.Instance.ColorsTouchs.SetColorsTouchs();
 
             CapsuleFilledRewards();

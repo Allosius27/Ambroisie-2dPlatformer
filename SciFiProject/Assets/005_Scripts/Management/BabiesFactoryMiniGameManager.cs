@@ -23,7 +23,9 @@ public class BabiesFactoryMiniGameManager : AllosiusDev.Singleton<BabiesFactoryM
     public Transform colorTapisTarget { get; set; }
 
     public GameObject ColorTapis => colorTapis;
-    public ColorMachine ColorMachine => colorMachine;
+
+    public int NumberOfColorsMachinesActived => numberOfColorsMachinesActived;
+    public List<ColorMachine> ColorsMachines => colorsMachines;
 
     public ColorsTouchs ColorsTouchs => colorsTouchs;
     public ColorsCapsules ColorsCapsules => colorsCapsules;
@@ -35,7 +37,13 @@ public class BabiesFactoryMiniGameManager : AllosiusDev.Singleton<BabiesFactoryM
 
     public int expPointsGained { get; set; }
 
-    public List<LevelRank> LevelRankTitle => levelRanks;
+    public float MultiplierCountTimePerLevel => multiplierCountTimePerLevel;
+
+
+    public BabiesMakeCtrl BabiesMakeCtrl => babiesMakeCtrl;
+
+    public List<BabiesFactoryLevelRank> LevelRankTitle => levelRanks;
+
 
     #endregion
 
@@ -46,17 +54,21 @@ public class BabiesFactoryMiniGameManager : AllosiusDev.Singleton<BabiesFactoryM
 
     [Space]
 
-    [SerializeField] private ColorMachine colorMachine;
+    [SerializeField] private int numberOfColorsMachinesActived;
+    [SerializeField] private List<ColorMachine> colorsMachines = new List<ColorMachine>();
 
     [SerializeField] private ColorsTouchs colorsTouchs;
 
     [SerializeField] private ColorsCapsules colorsCapsules;
 
     [SerializeField] private float countTime;
+    [SerializeField] private float multiplierCountTimePerLevel = 1.0f;
 
     [Space]
 
-    [SerializeField] private List<LevelRank> levelRanks = new List<LevelRank>();
+    [SerializeField] private BabiesMakeCtrl babiesMakeCtrl;
+
+    [SerializeField] private List<BabiesFactoryLevelRank> levelRanks = new List<BabiesFactoryLevelRank>();
 
     #endregion
 
@@ -97,6 +109,24 @@ public class BabiesFactoryMiniGameManager : AllosiusDev.Singleton<BabiesFactoryM
         GameCore.Instance.GetGameCanvasManager().BabiesJobExpAmountText.text = _playerCurrentJobExp.ToString() + "/" + _playerCurrentJobExpRequired;
     }
 
+    public void ChangeNumberOfColorsMachinesActived(int newNumber)
+    {
+        numberOfColorsMachinesActived = newNumber;
+        for (int i = 0; i < numberOfColorsMachinesActived; i++)
+        {
+            if (i < ColorsMachines.Count)
+            {
+                colorsMachines[i].gameObject.SetActive(true);
+                colorsMachines[i].SetColorSquare();
+            }
+        }
+    }
+
+    public void ChangeCountTime(float amount)
+    {
+        baseCountTime *= amount;
+    }
+
     public void ReinitColorTapisPosition()
     {
         colorTapis.transform.position = baseColorTapisPosition;
@@ -110,6 +140,13 @@ public class BabiesFactoryMiniGameManager : AllosiusDev.Singleton<BabiesFactoryM
     public void MoveTapis()
     {
         colorsCapsules.currentIndexColorCapsule++;
+
+        /*while (colorsCapsules.ListColorsCapsules[colorsCapsules.currentIndexColorCapsule].GetComponent<ColorCapsule>().isFilled && 
+            colorsCapsules.currentIndexColorCapsule < colorsCapsules.ListColorsCapsules.Count)
+        {
+            colorsCapsules.currentIndexColorCapsule++;
+        }*/
+
         if(colorsCapsules.currentIndexColorCapsule >= colorsCapsules.ListColorsCapsules.Count)
         {
             GameCore.Instance.GetGameCanvasManager().LaunchFadeImage();
@@ -145,6 +182,11 @@ public class BabiesFactoryMiniGameManager : AllosiusDev.Singleton<BabiesFactoryM
             {
                 colorTapisMoveSpeed = 0;
                 colorTapisMoving = false;
+                for (int i = 0; i < colorsMachines.Count; i++)
+                {
+                    ColorsMachines[i].canShoot = true;
+                }
+               
             }
         }
     }
@@ -177,7 +219,8 @@ public class BabiesFactoryMiniGameManager : AllosiusDev.Singleton<BabiesFactoryM
             }
         }
 
-        GameCore.Instance.SetStateBabiesMiniGame(false);
+        babiesMakeCtrl.babiesSort = true;
+        GameCore.Instance.BabiesCameraCtrl.SetPlayer(babiesMakeCtrl.transform.parent.gameObject);
     }
 
 

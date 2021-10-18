@@ -29,6 +29,7 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     public CameraCtrl MainCameraCtrl => mainCameraCtrl;
     public CameraCtrl ShootCameraCtrl => shootCameraCtrl;
+    public CameraCtrl BabiesCameraCtrl => babiesCameraCtrl;
 
     public GameObject WorldHub => worldHub;
     public GameObject WorldShootMiniGame => worldShootMiniGame;
@@ -134,7 +135,7 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
         mainCameraCtrl.gameObject.SetActive(!value);
         babiesCameraCtrl.gameObject.SetActive(value);
-        babiesCameraCtrl.SetPlayer(BabiesFactoryMiniGameManager.Instance.ColorMachine.gameObject);
+        babiesCameraCtrl.SetPlayer(BabiesFactoryMiniGameManager.Instance.ColorsMachines[0].gameObject);
 
 
         GetGameCanvasManager().BabiesFactoryTimer.SetActive(value);
@@ -146,12 +147,26 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         _player.graphics.GetComponent<SpriteRenderer>().enabled = !value;
         _player.graphics.GetComponent<Animator>().enabled = !value;
 
+        BabiesFactoryMiniGameManager.Instance.ColorsTouchs.gameObject.SetActive(value);
 
         if(value == true)
         {
             _player.transform.position = babiesFactoryMiniGamePlayerSpawnPoint.transform.position;
 
-            BabiesFactoryMiniGameManager.Instance.ColorMachine.SetColorSquare();
+            for (int i = 0; i < BabiesFactoryMiniGameManager.Instance.ColorsMachines.Count; i++)
+            {
+                BabiesFactoryMiniGameManager.Instance.ColorsMachines[i].gameObject.SetActive(false);
+            }
+
+            for (int i = 0; i < BabiesFactoryMiniGameManager.Instance.NumberOfColorsMachinesActived; i++)
+            {
+                if (i < BabiesFactoryMiniGameManager.Instance.ColorsMachines.Count)
+                {
+                    BabiesFactoryMiniGameManager.Instance.ColorsMachines[i].gameObject.SetActive(true);
+                    BabiesFactoryMiniGameManager.Instance.ColorsMachines[i].SetColorSquare();
+                }
+            }
+                
             BabiesFactoryMiniGameManager.Instance.ColorsTouchs.ActiveColorsTouchs(false);
             BabiesFactoryMiniGameManager.Instance.ColorsTouchs.SetColorsTouchs();
 
@@ -163,6 +178,8 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         }
         else
         {
+            BabiesFactoryMiniGameManager.Instance.BabiesMakeCtrl.ReinitPosition();
+
             _player.transform.position = babyFactoryEntrance.transform.position;
         }
 

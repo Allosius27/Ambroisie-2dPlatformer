@@ -137,6 +137,13 @@ public class PlayerStats : MonoBehaviour
             currentBabiesFactoryJobLevel++;
             BabiesFactoryMiniGameManager.Instance.SetCurrentLevelRankTitle(currentBabiesFactoryJobLevel);
 
+            BabiesFactoryMiniGameManager.Instance.ChangeCountTime(BabiesFactoryMiniGameManager.Instance.MultiplierCountTimePerLevel);
+            BabiesFactoryMiniGameManager.Instance.ChangeNumberOfColorsMachinesActived(BabiesFactoryMiniGameManager.Instance.LevelRankTitle[currentBabiesFactoryJobLevel].newNumberOfColorsMachinesActived);
+            for (int i = 0; i < BabiesFactoryMiniGameManager.Instance.ColorsMachines.Count; i++)
+            {
+                BabiesFactoryMiniGameManager.Instance.ColorsMachines[i].ChangeRandomColors(BabiesFactoryMiniGameManager.Instance.LevelRankTitle[currentBabiesFactoryJobLevel].rankColors);
+            }
+            
 
             float remnantExp = this.currentBabiesFactoryJobExp - currentBabiesFactoryJobExpRequired;
             this.currentBabiesFactoryJobExp = 0;

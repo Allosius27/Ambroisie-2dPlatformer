@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class ColorTouchCtrl : MonoBehaviour
+public class ColorTouchCtrl : MonoBehaviour, IPointerDownHandler
 {
     #region Properties
 
@@ -10,7 +11,24 @@ public class ColorTouchCtrl : MonoBehaviour
 
     #endregion
 
-    private void OnMouseDown()
+    public virtual void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log("Mouse Down " + gameObject.name);
+        for (int i = 0; i < BabiesFactoryMiniGameManager.Instance.NumberOfColorsMachinesActived; i++)
+        {
+            if (i < BabiesFactoryMiniGameManager.Instance.ColorsMachines.Count && currentColor == BabiesFactoryMiniGameManager.Instance.ColorsMachines[i].CurrentColor)
+            {
+                Debug.Log("color equals");
+                BabiesFactoryMiniGameManager.Instance.ColorsMachines[i].Shoot();
+            }
+            else
+            {
+                Debug.Log("not color equals");
+            }
+        }
+    }
+
+    /*private void OnMouseDown()
     {
         Debug.Log("Mouse Collides ColorTouch " + gameObject.name);
 
@@ -23,5 +41,5 @@ public class ColorTouchCtrl : MonoBehaviour
         {
             Debug.Log("not color equals");
         }
-    }
+    }*/
 }
