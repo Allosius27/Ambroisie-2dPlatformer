@@ -26,6 +26,7 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     public bool shootMiniGameActive { get; set; }
     public bool babiesFactoryMiniGameActive { get; set; }
+    public bool dopesMiniGameActive { get; set; }
 
     public CameraCtrl MainCameraCtrl => mainCameraCtrl;
     public CameraCtrl ShootCameraCtrl => shootCameraCtrl;
@@ -128,6 +129,38 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
                 resetMoodPlayer = false;
             }
         }
+    }
+
+    public void SetStateDopeMiniGame(bool value)
+    {
+        GetGameCanvasManager().LaunchFadeImage();
+
+        worldHub.SetActive(!value);
+
+        GetGameCanvasManager().Dopes.gameObject.SetActive(value);
+
+        Player _player = playerStats.GetComponent<Player>();
+        _player.canControl = !value;
+
+        _player.graphics.GetComponent<SpriteRenderer>().enabled = !value;
+        _player.graphics.GetComponent<Animator>().enabled = !value;
+
+        if(value)
+        {
+
+        }
+        else
+        {
+            AllosiusDev.AudioManager.Play(sfxExitMiniGame.sound);
+
+            for (int i = 0; i < GetGameCanvasManager().Dopes.DopesSliders.Count; i++)
+            {
+                GetGameCanvasManager().Dopes.DopesSliders[i].GetSlider().value = 0;
+            }
+            
+        }
+
+        dopesMiniGameActive = value;
     }
 
     public void SetStateBabiesMiniGame(bool value)

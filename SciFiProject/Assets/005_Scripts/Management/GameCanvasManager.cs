@@ -26,6 +26,8 @@ public class GameCanvasManager : MonoBehaviour
     public Text BabiesJobExpLabelText => babiesJobExpLabelText;
     public Text BabiesJobExpAmountText => babiesJobExpAmountText;
 
+    public Dopes Dopes => dopes;
+
     #endregion
 
     #region UnityInspector
@@ -52,6 +54,10 @@ public class GameCanvasManager : MonoBehaviour
     [SerializeField] private StatBar babiesJobExpBar;
     [SerializeField] private Text babiesJobExpLabelText;
     [SerializeField] private Text babiesJobExpAmountText;
+
+    [Space]
+
+    [SerializeField] private Dopes dopes;
 
     [Space]
 
