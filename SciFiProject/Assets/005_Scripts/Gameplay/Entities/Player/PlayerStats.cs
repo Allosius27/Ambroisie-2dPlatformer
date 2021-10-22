@@ -35,6 +35,10 @@ public class PlayerStats : MonoBehaviour
     public float currentBabiesFactoryJobExpRequired { get; set; }
     public int currentBabiesFactoryJobLevel { get; set; }
 
+    public float currentDopeJobExp { get; set; }
+    public float currentDopeJobExpRequired { get; set; }
+    public int currentDopeJobLevel { get; set; }
+
     #endregion
 
     #region UnityInspector
@@ -152,6 +156,44 @@ public class PlayerStats : MonoBehaviour
             if (remnantExp > 0)
             {
                 ChangeBabiesFactoryJobExp((int)(remnantExp));
+            }
+        }
+    }
+
+    public void ChangeDopeJobExp(int amount)
+    {
+        if (this.currentDopeJobExp < currentDopeJobExpRequired)
+        {
+            this.currentDopeJobExp += amount;
+
+            DopeLevelUp();
+
+            DopeMiniGameManager.Instance.SetCurrentExpRank(this.currentDopeJobExp, currentDopeJobExpRequired);
+        }
+        else
+        {
+            this.currentDopeJobExp = currentDopeJobExpRequired;
+            DopeMiniGameManager.Instance.SetCurrentExpRank(this.currentDopeJobExp, currentDopeJobExpRequired);
+        }
+    }
+
+    public void DopeLevelUp()
+    {
+        if (this.currentDopeJobExp >= currentDopeJobExpRequired && currentDopeJobLevel < JobMaxLevel)
+        {
+            currentDopeJobLevel++;
+            DopeMiniGameManager.Instance.SetCurrentLevelRankTitle(currentDopeJobLevel);
+
+            DopeMiniGameManager.Instance.ChangeCountTime(DopeMiniGameManager.Instance.MultiplierCountTimePerLevel);
+
+
+            float remnantExp = this.currentDopeJobExp - currentDopeJobExpRequired;
+            this.currentDopeJobExp = 0;
+            currentDopeJobExpRequired = currentDopeJobExpRequired * multiplierExpPerLevel;
+            GameCore.Instance.GetGameCanvasManager().Dopes.DopeJobExpBar.SetMaxBarValue(currentDopeJobExpRequired);
+            if (remnantExp > 0)
+            {
+                ChangeDopeJobExp((int)(remnantExp));
             }
         }
     }

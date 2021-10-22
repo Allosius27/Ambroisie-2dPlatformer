@@ -147,7 +147,7 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
         if(value)
         {
-
+            DopeMiniGameManager.Instance.ReinitCountTime();
         }
         else
         {
@@ -155,7 +155,7 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
             for (int i = 0; i < GetGameCanvasManager().Dopes.DopesSliders.Count; i++)
             {
-                GetGameCanvasManager().Dopes.DopesSliders[i].GetSlider().value = 0;
+                GetGameCanvasManager().Dopes.DopesSliders[i].ReinitValues();
             }
             
         }

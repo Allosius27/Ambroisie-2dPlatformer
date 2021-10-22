@@ -53,6 +53,7 @@ public class SceneLoader : AllosiusDev.Singleton<SceneLoader>
         GameCore.ResetInstance();
         ShootMiniGameManager.ResetInstance();
         BabiesFactoryMiniGameManager.ResetInstance();
+        DopeMiniGameManager.ResetInstance();
 
         AsyncOperation operation = SceneManager.LoadSceneAsync((int)(object)_sceneData.sceneToLoad);
 
