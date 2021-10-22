@@ -74,6 +74,7 @@ public class PlayerStats : MonoBehaviour
 
         currentShootJobExpRequired = baseExpRequired;
         currentBabiesFactoryJobExpRequired = baseExpRequired;
+        currentDopeJobExpRequired = baseExpRequired;
 
         maxHealth = this.health;
     }
@@ -185,6 +186,10 @@ public class PlayerStats : MonoBehaviour
             DopeMiniGameManager.Instance.SetCurrentLevelRankTitle(currentDopeJobLevel);
 
             DopeMiniGameManager.Instance.ChangeCountTime(DopeMiniGameManager.Instance.MultiplierCountTimePerLevel);
+            for (int i = 0; i < GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders.Count; i++)
+            {
+                GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders[i].ChangeSpeed();
+            }
 
 
             float remnantExp = this.currentDopeJobExp - currentDopeJobExpRequired;

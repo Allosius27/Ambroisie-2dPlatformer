@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
 
 	#region Properties
 	public bool canControl { get; set; }
+	public bool canFall { get; set; }
 
 	public bool isFemale { get; set; }
 
@@ -66,7 +67,7 @@ public class Player : MonoBehaviour
 
 		controller = GetComponent<PlayerController>();
 
-		
+		canFall = true;
     }
 
     void Start()
@@ -123,11 +124,13 @@ public class Player : MonoBehaviour
 			velocity.y = jumpVelocity;
 		}
 
-
-		float targetVelocityX = input.x * moveSpeed;
-		velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
-		velocity.y += gravity * Time.deltaTime;
-		controller.Move(velocity * Time.deltaTime);
+		if (canFall)
+		{
+			float targetVelocityX = input.x * moveSpeed;
+			velocity.x = Mathf.SmoothDamp(velocity.x, targetVelocityX, ref velocityXSmoothing, (controller.collisions.below) ? accelerationTimeGrounded : accelerationTimeAirborne);
+			velocity.y += gravity * Time.deltaTime;
+			controller.Move(velocity * Time.deltaTime);
+		}
 
 		if(isJump && velocity.y <= 0.0f)
         {

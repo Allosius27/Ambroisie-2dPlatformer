@@ -18,6 +18,7 @@ public class DopeSlider : MonoBehaviour
     public Slider Slider => slider;
 
     public int ExpPointsGainedMultiplier => expPointsGainedMultiplier;
+    public int PrestigePointsGainedMultiplier => prestigePointsGainedMultiplier;
 
     public Color BaseHandleImageColor => baseHandleImageColor;
 
@@ -32,11 +33,13 @@ public class DopeSlider : MonoBehaviour
     #region UnityInspector
 
     [SerializeField] private float speed;
+    [SerializeField] private float multiplierSpeedPerLevel = 1.0f;
 
     [SerializeField] private Image handleImage;
     [SerializeField] private Image eliminateImage;
 
     [SerializeField] private int expPointsGainedMultiplier;
+    [SerializeField] private int prestigePointsGainedMultiplier;
 
     #endregion
 
@@ -73,8 +76,9 @@ public class DopeSlider : MonoBehaviour
                     {
                         return;
                     }
-                    StartCoroutine(DopeMiniGameManager.Instance.EndDopeMiniGame());
                 }
+
+                StartCoroutine(DopeMiniGameManager.Instance.EndDopeMiniGame());
             }
         }
     }
@@ -84,8 +88,14 @@ public class DopeSlider : MonoBehaviour
         slider.value = 0;
         sliderEmpty = false;
         eliminateImage.enabled = false;
+        handleImage.color = baseHandleImageColor;
 
         slider.interactable = true;
+    }
+
+    public void ChangeSpeed()
+    {
+        this.speed *= multiplierSpeedPerLevel;
     }
 
     public Slider GetSlider()
