@@ -10,6 +10,8 @@ public class DopeMiniGameManager : AllosiusDev.Singleton<DopeMiniGameManager>
 
     private float baseCountTime;
 
+    private bool timerActive;
+
     #endregion
 
     #region Properties
@@ -64,6 +66,7 @@ public class DopeMiniGameManager : AllosiusDev.Singleton<DopeMiniGameManager>
     public void ReinitCountTime()
     {
         countTime = baseCountTime;
+        timerActive = true;
     }
 
     public void ChangeCountTime(float amount)
@@ -77,15 +80,31 @@ public class DopeMiniGameManager : AllosiusDev.Singleton<DopeMiniGameManager>
 
         string str = time.ToString(@"mm\:ss");
 
-        if (countTime <= 0)
+        if (countTime <= 0 && timerActive)
         {
             countTime = 0;
-
+            timerActive = false;
             StartCoroutine(EndDopeMiniGame());
         }
 
         GameCore.Instance.GetGameCanvasManager().Dopes.DopeTimer.transform.GetChild(0).GetComponent<Text>().text = str;
 
+    }
+
+    public int SetCurrentTotalPrestigePointsGained()
+    {
+        int _prestige = 0;
+
+        for (int i = 0; i < GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders.Count; i++)
+        {
+            if (GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders[i].sliderEmpty == false)
+            {
+                _prestige += (int)(GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders[i].PrestigePointsGainedMultiplier *
+                (GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders[i].Slider.maxValue - GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders[i].Slider.value));
+            }
+        }
+
+        return _prestige;
     }
 
     public int SetCurrentTotalExpPointsGained()
@@ -94,10 +113,13 @@ public class DopeMiniGameManager : AllosiusDev.Singleton<DopeMiniGameManager>
 
         for (int i = 0; i < GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders.Count; i++)
         {
-            _exp += (int)(GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders[i].ExpPointsGainedMultiplier *
+            if (GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders[i].sliderEmpty == false)
+            {
+                _exp += (int)(GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders[i].ExpPointsGainedMultiplier *
                 (GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders[i].Slider.maxValue - GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders[i].Slider.value));
+            }
         }
-
+        Debug.Log(_exp);
         return _exp;
     }
 
@@ -116,7 +138,8 @@ public class DopeMiniGameManager : AllosiusDev.Singleton<DopeMiniGameManager>
 
     public IEnumerator EndDopeMiniGame()
     {
-        playerStats.ChangeShootJobExp(SetCurrentTotalExpPointsGained());
+        playerStats.ChangeDopeJobExp(SetCurrentTotalExpPointsGained());
+        playerStats.ChangePrestigePoints(SetCurrentTotalPrestigePointsGained());
 
         yield return new WaitForSeconds(1.5f);
 

@@ -141,6 +141,7 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
         Player _player = playerStats.GetComponent<Player>();
         _player.canControl = !value;
+        _player.canFall = !value;
 
         _player.graphics.GetComponent<SpriteRenderer>().enabled = !value;
         _player.graphics.GetComponent<Animator>().enabled = !value;
