@@ -40,6 +40,7 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     #region UnityInspector
 
+    [SerializeField] private AllosiusDev.AudioData mainThemeMusic;
     [SerializeField] private AllosiusDev.AudioData sfxExitMiniGame;
 
     [Space]
@@ -85,6 +86,8 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     private void Start()
     {
+        AllosiusDev.AudioManager.Play(mainThemeMusic.sound);
+
         gameCanvasManager.MoodBar.SetMaxBarValue(playerStats.Mood);
         gameCanvasManager.HealthBar.SetMaxBarValue(playerStats.Health);
     }
