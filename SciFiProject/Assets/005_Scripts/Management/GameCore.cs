@@ -252,8 +252,13 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         _player.graphics.GetComponent<SpriteRenderer>().enabled = !value;
         _player.graphics.GetComponent<Animator>().enabled = !value;
 
+        
+
         if (value == true)
         {
+            WaveSpawner waveSpawner = FindObjectOfType<WaveSpawner>();
+            waveSpawner.state = WaveSpawner.SpawnState.COUNTING;
+
             PlayerShoot _playerShoot = playerStats.GetComponent<PlayerShoot>();
             if (_player.isFemale)
             {
