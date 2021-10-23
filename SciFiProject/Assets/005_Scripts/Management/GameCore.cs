@@ -20,6 +20,7 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     #region Properties
 
+    public PlayerStats PlayerStats => playerStats;
     public int shooterJobLevel { get; set; }
 
     public bool shopMenuIsOpen { get; set; }
