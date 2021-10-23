@@ -82,6 +82,8 @@ public class PlayerStats : MonoBehaviour
     private void Start()
     {
         GameCore.Instance.SetPrestigeAmount(prestigePoints);
+
+        DopeMiniGameManager.Instance.SetCurrentNumberDopesSlidersActives(currentDopeJobLevel);
     }
 
     public float ChangeHealth(float amount)
@@ -184,6 +186,8 @@ public class PlayerStats : MonoBehaviour
         {
             currentDopeJobLevel++;
             DopeMiniGameManager.Instance.SetCurrentLevelRankTitle(currentDopeJobLevel);
+
+            DopeMiniGameManager.Instance.SetCurrentNumberDopesSlidersActives(currentDopeJobLevel);
 
             DopeMiniGameManager.Instance.ChangeCountTime(DopeMiniGameManager.Instance.MultiplierCountTimePerLevel);
             for (int i = 0; i < GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders.Count; i++)

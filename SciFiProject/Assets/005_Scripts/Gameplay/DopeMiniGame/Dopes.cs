@@ -7,6 +7,8 @@ public class Dopes : MonoBehaviour
 {
     #region Properties
 
+    public int NumberdopesSlidersActives { get; set; }
+
     public List<DopeSlider> DopesSliders => dopesSliders;
 
     public GameObject DopeTimer => dopeTimer;
@@ -28,4 +30,21 @@ public class Dopes : MonoBehaviour
     [SerializeField] private Text dopeJobExpAmountText;
 
     #endregion
+
+    public void SetDopesSlidersActives()
+    {
+        for (int i = 0; i < dopesSliders.Count; i++)
+        {
+            if(i < NumberdopesSlidersActives)
+            {
+                dopesSliders[i].isActive = true;
+                dopesSliders[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                dopesSliders[i].isActive = false;
+                dopesSliders[i].gameObject.SetActive(false);
+            }
+        }
+    }
 }

@@ -1005,6 +1005,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Shoot_MiniGame
       objectReference: {fileID: 0}
+    - target: {fileID: 1812761634133312874, guid: ce1f424ccf7911f42836707bff06c78b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1812761634133312875, guid: ce1f424ccf7911f42836707bff06c78b, type: 3}
       propertyPath: m_RootOrder
       value: 1

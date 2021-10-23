@@ -18,7 +18,7 @@ public class DopeMiniGameManager : AllosiusDev.Singleton<DopeMiniGameManager>
 
     public float MultiplierCountTimePerLevel => multiplierCountTimePerLevel;
 
-    public List<LevelRank> LevelRanks => levelRanks;
+    public List<DopeLevelRank> LevelRanks => levelRanks;
 
     public PlayerStats playerStats { get; protected set; }
 
@@ -30,7 +30,7 @@ public class DopeMiniGameManager : AllosiusDev.Singleton<DopeMiniGameManager>
 
     [SerializeField] private float multiplierCountTimePerLevel = 1.0f;
 
-    [SerializeField] private List<LevelRank> levelRanks = new List<LevelRank>();
+    [SerializeField] private List<DopeLevelRank> levelRanks = new List<DopeLevelRank>();
 
     #endregion
 
@@ -113,7 +113,7 @@ public class DopeMiniGameManager : AllosiusDev.Singleton<DopeMiniGameManager>
 
         for (int i = 0; i < GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders.Count; i++)
         {
-            if (GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders[i].sliderEmpty == false)
+            if (GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders[i].sliderEmpty == false && GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders[i].isActive)
             {
                 _exp += (int)(GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders[i].ExpPointsGainedMultiplier *
                 (GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders[i].Slider.maxValue - GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders[i].Slider.value));
@@ -126,6 +126,11 @@ public class DopeMiniGameManager : AllosiusDev.Singleton<DopeMiniGameManager>
     public void SetCurrentLevelRankTitle(int playerJobLevel)
     {
         GameCore.Instance.GetGameCanvasManager().Dopes.DopeJobExpLabelText.text = levelRanks[playerJobLevel].title + " :";
+    }
+
+    public void SetCurrentNumberDopesSlidersActives(int playerJobLevel)
+    {
+        GameCore.Instance.GetGameCanvasManager().Dopes.NumberdopesSlidersActives = levelRanks[playerJobLevel].numberDopesSliderActives;
     }
 
     public void SetCurrentExpRank(float playerCurrentJobExp, float playerCurrentJobExpRequired)

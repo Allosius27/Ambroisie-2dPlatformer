@@ -15,6 +15,8 @@ public class DopeSlider : MonoBehaviour
 
     #region Properties
 
+    public bool isActive { get; set; }
+
     public Slider Slider => slider;
 
     public int ExpPointsGainedMultiplier => expPointsGainedMultiplier;
@@ -63,23 +65,26 @@ public class DopeSlider : MonoBehaviour
         {
             slider.value += Time.deltaTime * speed ;
 
-            if(slider.value >= slider.maxValue)
+            
+        }
+
+        if (slider.value >= slider.maxValue && sliderEmpty == false)
+        {
+            slider.interactable = false;
+            handleImage.color = Color.white;
+            eliminateImage.enabled = true;
+            sliderEmpty = true;
+
+            for (int i = 0; i < GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders.Count; i++)
             {
-                slider.interactable = false;
-                handleImage.color = Color.white;
-                eliminateImage.enabled = true;
-                sliderEmpty = true;
-
-                for (int i = 0; i < GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders.Count; i++)
+                if (GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders[i].sliderEmpty == false &&
+                    GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders[i].isActive)
                 {
-                    if(GameCore.Instance.GetGameCanvasManager().Dopes.DopesSliders[i].sliderEmpty == false)
-                    {
-                        return;
-                    }
+                    return;
                 }
-
-                StartCoroutine(DopeMiniGameManager.Instance.EndDopeMiniGame());
             }
+
+            StartCoroutine(DopeMiniGameManager.Instance.EndDopeMiniGame());
         }
     }
 
