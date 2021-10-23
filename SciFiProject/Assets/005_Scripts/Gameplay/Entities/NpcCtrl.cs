@@ -15,6 +15,11 @@ public class NpcCtrl : MonoBehaviour
 
     private void Start()
     {
+        InitAnim();
+    }
+
+    public void InitAnim()
+    {
         anim.SetLayerWeight(layerIndex, 1);
         anim.SetInteger("Transition", transitionAnimIndex);
         anim.SetTrigger("ChangeAnim");

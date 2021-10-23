@@ -260,6 +260,12 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
             WaveSpawner waveSpawner = FindObjectOfType<WaveSpawner>();
             waveSpawner.state = WaveSpawner.SpawnState.COUNTING;
 
+            var pnjs = FindObjectsOfType<NpcCtrl>();
+            for (int i = 0; i < pnjs.Length; i++)
+            {
+                pnjs[i].InitAnim();
+            }
+
             PlayerShoot _playerShoot = playerStats.GetComponent<PlayerShoot>();
             if (_player.isFemale)
             {
