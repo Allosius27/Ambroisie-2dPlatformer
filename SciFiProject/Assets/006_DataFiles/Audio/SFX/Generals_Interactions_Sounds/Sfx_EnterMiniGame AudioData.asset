@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sfx_EnterMiniGame AudioData
   m_EditorClassIdentifier: 
   sound:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 7734ee03c99bebe419908d425915b38e, type: 3}
     parameters:
       typeSound: 0
       volume: 0.21
