@@ -18,6 +18,11 @@ public class PlayerVisual : MonoBehaviour
 
     #endregion
 
+    public void ShootAnim()
+    {
+        anim.SetTrigger("shoot");
+    }
+
     public void PlayerResurect()
     {
         playerStats.PlayerResurect();

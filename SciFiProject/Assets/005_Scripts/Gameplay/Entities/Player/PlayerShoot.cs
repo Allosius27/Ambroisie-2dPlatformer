@@ -78,6 +78,8 @@ public class PlayerShoot : MonoBehaviour
 
             AllosiusDev.AudioManager.Play(sfxBulletShot.sound);
 
+            currentPrefabPlayerTower.GetComponent<PlayerVisual>().ShootAnim();
+
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
             bullet.transform.SetParent(firePoint);
             bullet.transform.localPosition = Vector3.zero;
