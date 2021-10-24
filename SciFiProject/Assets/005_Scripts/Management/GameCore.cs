@@ -116,7 +116,19 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     public void AddCountTime(float amount)
     {
-        countTimer += amount;
+        
+
+        if(playerStats.Mood >= 20)
+        {
+            countTimer += amount;
+        }
+        else
+        {
+            if (babiesFactoryMiniGameActive == false && shootMiniGameActive == false && dopesMiniGameActive == false)
+            {
+                countTimer += amount;
+            }
+        }
 
         if (countTimer >= moodTimeInterval && resetMoodPlayer == false)
         {
