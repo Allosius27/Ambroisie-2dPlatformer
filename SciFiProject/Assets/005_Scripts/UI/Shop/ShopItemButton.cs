@@ -24,6 +24,8 @@ public class ShopItemButton : MonoBehaviour
 
     #region UnityInspector
 
+    [SerializeField] private AllosiusDev.AudioData sfxItemBought;
+
     [SerializeField] private Image itemImage;
     [SerializeField] private Image backgroundImage;
     [SerializeField] private Image buttonImage;
@@ -62,6 +64,8 @@ public class ShopItemButton : MonoBehaviour
             {
                 shop.buyEffected = true;
             }
+
+            AllosiusDev.AudioManager.Play(sfxItemBought.sound);
 
             GameCore.Instance.SetPrestigeAmount(shop.PlayerStats.ChangePrestigePoints(-cost));
 
