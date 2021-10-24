@@ -14,8 +14,10 @@ public class PlayerStats : MonoBehaviour
 
     #region Properties
 
+    public bool canRegenerate { get; set; }
     public float Mood => mood;
     public float Health => health;
+    public float MaxHealth => maxHealth;
     public int PrestigePoints => prestigePoints;
 
     public float BaseExpRequired => baseExpRequired;
@@ -68,6 +70,8 @@ public class PlayerStats : MonoBehaviour
 
     private void Awake()
     {
+        canRegenerate = true;
+
         playerShoot = GetComponent<PlayerShoot>();
 
         baseShootHealth = shootHealth;
@@ -89,6 +93,11 @@ public class PlayerStats : MonoBehaviour
     public float ChangeHealth(float amount)
     {
         this.health += amount;
+        if(this.health <= 0)
+        {
+            this.health = 0;
+        }
+        GameCore.Instance.GetGameCanvasManager().HealthBar.SetBarValue(this.health);
         return this.health;
     }
 
@@ -96,16 +105,21 @@ public class PlayerStats : MonoBehaviour
     {
         if(ChangeHealth(amount) <= 0)
         {
-            GetComponent<Player>().animator.SetTrigger("death");
-            GetComponent<Player>().canControl = false;
+            Player player = GetComponent<Player>();
+            player.animator.SetTrigger("death");
+            player.canControl = false;
+            canRegenerate = false;
+            GameObject capsule = Instantiate(player.PrefabHealCapsule, player.RegenCapsulePoint.position, player.RegenCapsulePoint.rotation);
         }
     }
 
     public void PlayerResurect()
     {
+        GetComponent<Player>().canControl = true;
         GetComponent<Player>().animator.SetTrigger("resurect");
         this.health = maxHealth;
-        GetComponent<Player>().canControl = true;
+        GameCore.Instance.GetGameCanvasManager().HealthBar.SetBarValue(this.health);
+        canRegenerate = true;
     }
 
     public float ChangeMood(float amount)

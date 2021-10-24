@@ -16,10 +16,12 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     private bool resetMoodPlayer;
 
+
     #endregion
 
     #region Properties
 
+    public bool capsuleMoodInstance { get; set; }
     public PlayerStats PlayerStats => playerStats;
     public int shooterJobLevel { get; set; }
 
@@ -91,6 +93,10 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
         gameCanvasManager.MoodBar.SetMaxBarValue(playerStats.Mood);
         gameCanvasManager.HealthBar.SetMaxBarValue(playerStats.Health);
+
+        worldShootMiniGame.SetActive(false);
+        worldBabiesMiniGame.SetActive(false);
+        worldHub.SetActive(true);
     }
 
     private void Update()
@@ -117,13 +123,16 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
             countTimer = 0.0f;
             float newPlayerMoodValue = playerStats.ChangeMood(moodLostPerTimeInterval);
             gameCanvasManager.MoodBar.SetBarValue(newPlayerMoodValue);
-            if(newPlayerMoodValue <= 0)
-            {
-                StartCoroutine(TimerResetMoodPlayer());
-            }
+            
         }
 
-        if(resetMoodPlayer)
+        if (playerStats.Mood <= 0 && playerStats.Health >= playerStats.MaxHealth && capsuleMoodInstance == false && playerStats.canRegenerate)
+        {
+            capsuleMoodInstance = true;
+            StartCoroutine(TimerResetMoodPlayer());
+        }
+
+        if (resetMoodPlayer)
         {
             countTimer = 0.0f;
             float newPlayerMoodValue = playerStats.ChangeMood(moodResetSpeed);
@@ -306,13 +315,19 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
     IEnumerator TimerResetMoodPlayer()
     {
+        yield return new WaitForSeconds(0.25f);
+
         playerStats.GetComponent<Player>().canControl = false;
 
-        resetMoodPlayer = true;
+        yield return new WaitForSeconds(0.5f);
+
+        GameObject capsule = Instantiate(playerStats.GetComponent<Player>().PrefabMoodCapsule,
+            playerStats.GetComponent<Player>().RegenCapsulePoint.position, playerStats.GetComponent<Player>().RegenCapsulePoint.rotation);
 
         yield return new WaitForSeconds(timeToWaitBeforeResetMoodPlayer);
+        resetMoodPlayer = true;
 
-        playerStats.GetComponent<Player>().canControl = true;
+        //playerStats.GetComponent<Player>().canControl = true;
 
     }
 

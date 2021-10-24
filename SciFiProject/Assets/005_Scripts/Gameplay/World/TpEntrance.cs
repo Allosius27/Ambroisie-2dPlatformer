@@ -16,10 +16,10 @@ public class TpEntrance : Entrance
     {
         base.Update();
 
-        if (Input.GetKeyDown(ActiveMiniGameKey))
+        if (Input.GetKeyDown(ActiveMiniGameKey) && CanLaunch)
         {
             AllosiusDev.AudioManager.Play(sfxEnterMiniGame.sound);
-            transform.position = tpPoint.position;
+            GameCore.Instance.PlayerStats.transform.position = tpPoint.position;
         }
     }
 }

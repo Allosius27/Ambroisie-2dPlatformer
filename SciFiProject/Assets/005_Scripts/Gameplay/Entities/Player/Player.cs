@@ -33,11 +33,24 @@ public class Player : MonoBehaviour
 
 	public bool isFemale { get; set; }
 
+	public Transform RegenCapsulePoint => regenCapsulePoint;
+
+	public GameObject PrefabHealCapsule => prefabHealCapsule;
+	public GameObject PrefabMoodCapsule => prefabMoodCapsule;
+
 	#endregion
 
 	#region UnityInspector
 
 	[SerializeField] private Sprite maleSprite, femaleSprite;
+	[SerializeField] private RuntimeAnimatorController animMale, animFemale;
+
+	[Space]
+
+	[SerializeField] private Transform regenCapsulePoint;
+
+	[SerializeField] private GameObject prefabHealCapsule;
+	[SerializeField] private GameObject prefabMoodCapsule;
 
 	[Space]
 
@@ -164,6 +177,20 @@ public class Player : MonoBehaviour
 			}
 		}
 	}
+
+	public void SetGender()
+    {
+		if(isFemale)
+        {
+			graphics.GetComponent<SpriteRenderer>().sprite = femaleSprite;
+			animator.runtimeAnimatorController = animFemale;
+        }
+		else
+        {
+			graphics.GetComponent<SpriteRenderer>().sprite = maleSprite;
+			animator.runtimeAnimatorController = animMale;
+		}
+    }
 
 	public void PlayerDeath()
     {

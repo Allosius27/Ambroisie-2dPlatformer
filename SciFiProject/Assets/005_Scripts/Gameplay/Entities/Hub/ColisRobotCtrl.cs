@@ -75,10 +75,12 @@ public class ColisRobotCtrl : MonoBehaviour
 
     public void ActionColis()
     {
-        Instantiate(prefabColis, boxSpawnPoint.position, boxSpawnPoint.rotation);
+        PlayerStats playerStats = FindObjectOfType<PlayerStats>();
+        GameObject colis = Instantiate(prefabColis, boxSpawnPoint.position, boxSpawnPoint.rotation);
+        Destroy(colis, 4);
+        Physics2D.IgnoreCollision(colis.GetComponent<Collider2D>(), playerStats.GetComponent<Collider2D>());
         anim.SetBool("Leave", true);
         speed = baseSpeed;
-        PlayerStats playerStats = FindObjectOfType<PlayerStats>();
         playerStats.TakeDamage(-1000);
         Destroy(gameObject, 5f);
     }

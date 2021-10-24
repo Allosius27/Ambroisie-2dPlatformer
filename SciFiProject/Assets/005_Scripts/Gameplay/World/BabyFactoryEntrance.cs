@@ -19,7 +19,7 @@ public class BabyFactoryEntrance : Entrance
     {
         base.Update();
 
-        if (Input.GetKeyDown(ActiveMiniGameKey) && CanLaunchMiniGame)
+        if (Input.GetKeyDown(ActiveMiniGameKey) && CanLaunch)
         {
             Debug.Log("Baby Factory Entrance");
             AllosiusDev.AudioManager.Play(sfxEnterMiniGame.sound);

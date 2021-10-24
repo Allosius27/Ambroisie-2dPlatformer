@@ -19,7 +19,7 @@ public class RingEntrance : Entrance
     {
         base.Update();
 
-        if (Input.GetKeyDown(ActiveMiniGameKey) && CanLaunchMiniGame)
+        if (Input.GetKeyDown(ActiveMiniGameKey) && CanLaunch)
         {
             AllosiusDev.AudioManager.Play(sfxEnterMiniGame.sound);
             GameCore.Instance.SetStateShootMiniGame(true);

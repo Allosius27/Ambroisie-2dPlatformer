@@ -14,7 +14,7 @@ public class DopeEntrance : Entrance
     {
         base.Update();
 
-        if (Input.GetKeyDown(ActiveMiniGameKey) && CanLaunchMiniGame)
+        if (Input.GetKeyDown(ActiveMiniGameKey) && CanLaunch)
         {
             Debug.Log("Dope Entrance");
             AllosiusDev.AudioManager.Play(sfxEnterMiniGame.sound);

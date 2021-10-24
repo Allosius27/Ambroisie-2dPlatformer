@@ -6,13 +6,13 @@ public class Entrance : MonoBehaviour
 {
     #region Fields
 
-    private bool canLaunchMiniGame;
+    private bool canLaunch;
 
     #endregion
 
     #region Properties
 
-    public bool CanLaunchMiniGame => canLaunchMiniGame;
+    public bool CanLaunch => canLaunch;
 
     public KeyCode ActiveMiniGameKey => activeMiniGameKey;
     public GameObject DisplayKeyMiniGameToInput => displayKeyMiniGameToInput;
@@ -33,7 +33,7 @@ public class Entrance : MonoBehaviour
 
     public virtual void Update()
     {
-        if (canLaunchMiniGame)
+        if (canLaunch)
         {
             displayKeyMiniGameToInput.SetActive(true);
         }
@@ -54,7 +54,7 @@ public class Entrance : MonoBehaviour
 
         if (typeCollision.type == Entity.Type.Player)
         {
-            canLaunchMiniGame = true;
+            canLaunch = true;
         }
     }
 
@@ -69,7 +69,7 @@ public class Entrance : MonoBehaviour
 
         if (typeCollision.type == Entity.Type.Player)
         {
-            canLaunchMiniGame = false;
+            canLaunch = false;
         }
     }
 }

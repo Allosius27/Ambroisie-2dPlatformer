@@ -11,6 +11,8 @@ public class GameCanvasManager : MonoBehaviour
 
     #region Properties
 
+    public ChooseGender ChooseGender => chooseGender;
+
     public StatBar HealthBar => healthBar;
     public StatBar MoodBar => moodBar;
 
@@ -31,6 +33,10 @@ public class GameCanvasManager : MonoBehaviour
     #endregion
 
     #region UnityInspector
+
+    [SerializeField] private ChooseGender chooseGender;
+
+    [Space]
 
     [SerializeField] private StatBar healthBar;
     [SerializeField] private StatBar moodBar;
