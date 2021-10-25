@@ -105,6 +105,13 @@ public class ColorMachine : MonoBehaviour
         currentColor = listRandomColors[rnd];
     }
 
+    public IEnumerator DebugShoot()
+    {
+        yield return new WaitForSeconds(2f);
+
+        canShoot = true;
+    }
+
     public void Shoot()
     {
         if (canShoot)

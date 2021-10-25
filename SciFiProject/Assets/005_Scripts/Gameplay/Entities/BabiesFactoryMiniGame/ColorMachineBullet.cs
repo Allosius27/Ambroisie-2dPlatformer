@@ -31,6 +31,7 @@ public class ColorMachineBullet : Bullet
             {
                 if (i < BabiesFactoryMiniGameManager.Instance.ColorsMachines.Count)
                 {
+                    StartCoroutine(BabiesFactoryMiniGameManager.Instance.ColorsMachines[i].DebugShoot());
                     BabiesFactoryMiniGameManager.Instance.ColorsMachines[i].SetColorSquare();
                 }
             }
