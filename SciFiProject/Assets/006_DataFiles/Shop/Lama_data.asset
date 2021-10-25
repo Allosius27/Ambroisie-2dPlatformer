@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Lama_data
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 2ee3e965f7708fa45950992ba6cc6d2d, type: 3}
-  costItem: 0
+  costItem: 20000
