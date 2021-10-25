@@ -29,7 +29,14 @@ public class Dopes : MonoBehaviour
     [SerializeField] private Text dopeJobExpLabelText;
     [SerializeField] private Text dopeJobExpAmountText;
 
+    [SerializeField] private Image background;
+
     #endregion
+
+    public void SetBackgroundActive(bool value)
+    {
+        background.gameObject.SetActive(value);
+    }
 
     public void SetDopesSlidersActives()
     {

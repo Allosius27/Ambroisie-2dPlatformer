@@ -171,7 +171,11 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         _player.graphics.GetComponent<SpriteRenderer>().enabled = !value;
         _player.graphics.GetComponent<Animator>().enabled = !value;
 
-        if(value)
+        GetGameCanvasManager().Dopes.SetBackgroundActive(value);
+
+        InitNpcCtrl();
+
+        if (value)
         {
             DopeMiniGameManager.Instance.ReinitCountTime();
 
@@ -214,7 +218,9 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
 
         BabiesFactoryMiniGameManager.Instance.ColorsTouchs.gameObject.SetActive(value);
 
-        if(value == true)
+        InitNpcCtrl();
+
+        if (value == true)
         {
             _player.transform.position = babiesFactoryMiniGamePlayerSpawnPoint.transform.position;
 
@@ -240,6 +246,8 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
             BabiesFactoryMiniGameManager.Instance.ColorsCapsules.currentIndexColorCapsule = 0;
 
             BabiesFactoryMiniGameManager.Instance.ReinitCountTime();
+
+            BabiesFactoryMiniGameManager.Instance.MachinesCanShoot();
         }
         else
         {
@@ -274,18 +282,14 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         _player.graphics.GetComponent<SpriteRenderer>().enabled = !value;
         _player.graphics.GetComponent<Animator>().enabled = !value;
 
-        
+        InitNpcCtrl();
 
         if (value == true)
         {
             WaveSpawner waveSpawner = FindObjectOfType<WaveSpawner>();
             waveSpawner.state = WaveSpawner.SpawnState.COUNTING;
 
-            var pnjs = FindObjectsOfType<NpcCtrl>();
-            for (int i = 0; i < pnjs.Length; i++)
-            {
-                pnjs[i].InitAnim();
-            }
+            
 
             PlayerShoot _playerShoot = playerStats.GetComponent<PlayerShoot>();
             if (_player.isFemale)
@@ -323,6 +327,15 @@ public class GameCore : AllosiusDev.Singleton<GameCore>
         }
 
         shootMiniGameActive = value;
+    }
+
+    public void InitNpcCtrl()
+    {
+        var pnjs = FindObjectsOfType<NpcCtrl>();
+        for (int i = 0; i < pnjs.Length; i++)
+        {
+            pnjs[i].InitAnim();
+        }
     }
 
     IEnumerator TimerResetMoodPlayer()

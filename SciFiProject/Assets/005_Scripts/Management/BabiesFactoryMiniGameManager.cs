@@ -186,17 +186,22 @@ public class BabiesFactoryMiniGameManager : AllosiusDev.Singleton<BabiesFactoryM
 
 
             // Si l'ennemi est quasiment arrivé à sa destination
-            if (Vector3.Distance(colorTapis.transform.position, colorTapisTarget.position) < 0.3f)
+            if (Vector3.Distance(colorTapis.transform.position, colorTapisTarget.position) < 0.5f)
             {
                 colorTapisMoveSpeed = 0;
                 colorTapisMoving = false;
                 AllosiusDev.AudioManager.Stop(sfxMoveTapis.sound);
-                for (int i = 0; i < colorsMachines.Count; i++)
-                {
-                    ColorsMachines[i].canShoot = true;
-                }
-               
+
+                MachinesCanShoot();
             }
+        }
+    }
+
+    public void MachinesCanShoot()
+    {
+        for (int i = 0; i < colorsMachines.Count; i++)
+        {
+            ColorsMachines[i].canShoot = true;
         }
     }
 
