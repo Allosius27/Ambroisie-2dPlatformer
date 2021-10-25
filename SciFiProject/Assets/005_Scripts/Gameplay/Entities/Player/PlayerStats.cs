@@ -63,6 +63,7 @@ public class PlayerStats : MonoBehaviour
     [Space]
 
     [SerializeField] private float shootHealth;
+    public GameObject VFXSang; 
 
     #endregion
 
@@ -106,6 +107,7 @@ public class PlayerStats : MonoBehaviour
         if(ChangeHealth(amount) <= 0)
         {
             Player player = GetComponent<Player>();
+            GameObject blood = Instantiate(VFXSang, gameObject.transform.position, Quaternion.identity);
             player.animator.SetTrigger("death");
             player.canControl = false;
             canRegenerate = false;

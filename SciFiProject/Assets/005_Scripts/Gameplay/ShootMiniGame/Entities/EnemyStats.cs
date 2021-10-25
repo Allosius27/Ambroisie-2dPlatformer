@@ -23,6 +23,8 @@ public class EnemyStats : MonoBehaviour
     [SerializeField] private int prestigePointsAtGained;
     [SerializeField] private int expJobAtGained;
 
+    public GameObject VFXSang; 
+
     #endregion
 
     private void Awake()
@@ -44,6 +46,8 @@ public class EnemyStats : MonoBehaviour
 
             GameCore.Instance.SetPrestigeAmount(ShootMiniGameManager.Instance.playerStats.ChangePrestigePoints(ShootMiniGameManager.Instance.prestigePointsGained));
             ShootMiniGameManager.Instance.prestigePointsGained = 0;
+
+            GameObject blood = Instantiate(VFXSang, gameObject.transform.position, Quaternion.identity);
 
             Destroy(gameObject);
         }
