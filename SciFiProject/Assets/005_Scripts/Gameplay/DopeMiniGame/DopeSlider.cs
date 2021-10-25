@@ -43,7 +43,7 @@ public class DopeSlider : MonoBehaviour
     [SerializeField] private int expPointsGainedMultiplier;
     [SerializeField] private int prestigePointsGainedMultiplier;
 
-    [SerializeField] private Sprite baseHandleSprite, middleHandleSprite, minHandleSprite;
+    [SerializeField] private Sprite handleSprite_01, handleSprite_02, handleSprite_03, handleSprite_04;
 
     #endregion
 
@@ -63,19 +63,22 @@ public class DopeSlider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if(slider.value <= slider.maxValue / 2)
+        if(slider.value <= slider.maxValue / 4)
         {
-            handleImage.sprite = baseHandleSprite;
+            handleImage.sprite = handleSprite_01;
+        }
+        else if(slider.value <= slider.maxValue / 2)
+        {
+            handleImage.sprite = handleSprite_02;
         }
         else if (slider.value <= slider.maxValue / 1.3f)
         {
             
-            handleImage.sprite = middleHandleSprite;
+            handleImage.sprite = handleSprite_03;
         }
         else
         {
-            handleImage.sprite = minHandleSprite;
+            handleImage.sprite = handleSprite_04;
 
         }
 
