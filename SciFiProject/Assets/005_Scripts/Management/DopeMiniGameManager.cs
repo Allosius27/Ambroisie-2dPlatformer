@@ -145,6 +145,7 @@ public class DopeMiniGameManager : AllosiusDev.Singleton<DopeMiniGameManager>
     {
         playerStats.ChangeDopeJobExp(SetCurrentTotalExpPointsGained());
         playerStats.ChangePrestigePoints(SetCurrentTotalPrestigePointsGained());
+        GameCore.Instance.SetPrestigeAmount(playerStats.PrestigePoints);
 
         yield return new WaitForSeconds(1.5f);
 

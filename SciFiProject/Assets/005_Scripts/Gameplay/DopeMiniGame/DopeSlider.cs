@@ -43,6 +43,8 @@ public class DopeSlider : MonoBehaviour
     [SerializeField] private int expPointsGainedMultiplier;
     [SerializeField] private int prestigePointsGainedMultiplier;
 
+    [SerializeField] private Sprite baseHandleSprite, middleHandleSprite, minHandleSprite;
+
     #endregion
 
     private void Awake()
@@ -61,6 +63,19 @@ public class DopeSlider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(slider.value >= slider.maxValue)
+        {
+            handleImage.sprite = baseHandleSprite;
+        }
+        else if(slider.value <= slider.maxValue / 2)
+        {
+            handleImage.sprite = middleHandleSprite;
+        }
+        else
+        {
+            handleImage.sprite = minHandleSprite;
+        }
+
         if(GameCore.Instance.dopesMiniGameActive && slider.value < slider.maxValue)
         {
             slider.value += Time.deltaTime * speed ;
