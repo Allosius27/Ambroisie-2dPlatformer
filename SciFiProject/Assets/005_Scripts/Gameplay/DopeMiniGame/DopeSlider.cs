@@ -63,17 +63,20 @@ public class DopeSlider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(slider.value >= slider.maxValue)
+        
+        if(slider.value <= slider.maxValue / 2)
         {
             handleImage.sprite = baseHandleSprite;
         }
-        else if(slider.value <= slider.maxValue / 2)
+        else if (slider.value <= slider.maxValue / 1.3f)
         {
+            
             handleImage.sprite = middleHandleSprite;
         }
         else
         {
             handleImage.sprite = minHandleSprite;
+
         }
 
         if(GameCore.Instance.dopesMiniGameActive && slider.value < slider.maxValue)
