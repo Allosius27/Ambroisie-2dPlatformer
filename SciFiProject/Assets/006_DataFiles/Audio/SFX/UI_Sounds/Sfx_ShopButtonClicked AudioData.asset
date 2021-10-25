@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sfx_ShopButtonClicked AudioData
   m_EditorClassIdentifier: 
   sound:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: dfa6e2cfe8b1a9f4c80f5a036b3081a1, type: 3}
     parameters:
       typeSound: 0
       volume: 0.18

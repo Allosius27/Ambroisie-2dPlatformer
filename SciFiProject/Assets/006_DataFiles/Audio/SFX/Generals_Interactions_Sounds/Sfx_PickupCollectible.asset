@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sfx_PickupCollectible
   m_EditorClassIdentifier: 
   sound:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 9255c5e4fe2aa014c8d059d6e9a1309f, type: 3}
     parameters:
       typeSound: 0
       volume: 0.15

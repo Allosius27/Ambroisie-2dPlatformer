@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sfx_BabiesSort AudioData
   m_EditorClassIdentifier: 
   sound:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: cda072ab0251e214186c5643ce7363fc, type: 3}
     parameters:
       typeSound: 0
       volume: 0.21

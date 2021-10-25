@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sfx_TapisMove AudioData
   m_EditorClassIdentifier: 
   sound:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 2a431b204223a3441a29dc9b04c82ad9, type: 3}
     parameters:
       typeSound: 0
       volume: 0.21

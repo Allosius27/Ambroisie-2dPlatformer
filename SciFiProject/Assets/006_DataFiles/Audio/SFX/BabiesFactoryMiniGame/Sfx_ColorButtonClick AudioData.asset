@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sfx_ColorButtonClick AudioData
   m_EditorClassIdentifier: 
   sound:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: c41f096239c68c847b451ef0ae4c98a5, type: 3}
     parameters:
       typeSound: 0
       volume: 0.25

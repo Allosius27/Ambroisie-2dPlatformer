@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sfx_Bullet AudioData
   m_EditorClassIdentifier: 
   sound:
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 2bee60fe81f068041964ceb173121c2c, type: 3}
     parameters:
       typeSound: 0
       volume: 0.25
