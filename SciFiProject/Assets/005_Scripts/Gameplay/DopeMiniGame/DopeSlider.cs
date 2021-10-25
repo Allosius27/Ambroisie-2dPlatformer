@@ -39,11 +39,13 @@ public class DopeSlider : MonoBehaviour
 
     [SerializeField] private Image handleImage;
     [SerializeField] private Image eliminateImage;
+    [SerializeField] private Image colorBackground;
 
     [SerializeField] private int expPointsGainedMultiplier;
     [SerializeField] private int prestigePointsGainedMultiplier;
 
     [SerializeField] private Sprite handleSprite_01, handleSprite_02, handleSprite_03, handleSprite_04;
+    [SerializeField] private Color sliderColor_01, sliderColor_02, sliderColor_03, sliderColor_04;
 
     #endregion
 
@@ -66,19 +68,22 @@ public class DopeSlider : MonoBehaviour
         if(slider.value <= slider.maxValue / 4)
         {
             handleImage.sprite = handleSprite_01;
+            colorBackground.color = sliderColor_01;
         }
         else if(slider.value <= slider.maxValue / 2)
         {
             handleImage.sprite = handleSprite_02;
+            colorBackground.color = sliderColor_02;
         }
         else if (slider.value <= slider.maxValue / 1.3f)
         {
-            
             handleImage.sprite = handleSprite_03;
+            colorBackground.color = sliderColor_03;
         }
         else
         {
             handleImage.sprite = handleSprite_04;
+            colorBackground.color = sliderColor_04;
 
         }
 
